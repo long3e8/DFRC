@@ -18,8 +18,7 @@ inputSequence = repelem (inputSequence,Nodes);
 inputSequence = [T(:),inputSequence(:)];
 
 % Run Mackey-Glass simulation
-n = 9.65;
-TDelay = 2/30;
+TDelay = S;
 TFinal = S*N;
 sim('MG1.slx');
 

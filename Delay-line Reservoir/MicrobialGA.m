@@ -1,4 +1,3 @@
-
 %% Evolve substrate for a specific task
 % This script can be used to evolve any reservoir directly to a task. It
 % uses the steady-state Microbial Genetic Algorithm to evolve the best
@@ -23,7 +22,7 @@ if isempty(gcp) && config.parallel
 end
 
 % type of network to evolve
-config.res_type = 'RoR';             % state type of reservoir(s) to use. E.g. 'RoR' (Reservoir-of-reservoirs/ESNs), 'ELM' (Extreme learning machine), 'Graph' (graph network with multiple functions), 'DL' (delay line reservoir) etc. Check 'selectReservoirType.m' for more.
+config.res_type = 'DL';             % state type of reservoir(s) to use. E.g. 'RoR' (Reservoir-of-reservoirs/ESNs), 'ELM' (Extreme learning machine), 'Graph' (graph network with multiple functions), 'DL' (delay line reservoir) etc. Check 'selectReservoirType.m' for more.
 config.num_nodes = [50];                   % num of nodes in each sub-reservoir, e.g. if config.num_nodes = [10,5,15], there would be 3 sub-reservoirs with 10, 5 and 15 nodes each.
 config = selectReservoirType(config);         % collect function pointers for the selected reservoir type
 

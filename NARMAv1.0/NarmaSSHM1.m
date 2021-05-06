@@ -1,6 +1,11 @@
 % NARMA-10 Sample & Hold (√), Binary Masking (√)
-% To run NARMA equation
-sequence_length = 10000;
+% To run NARMA-10 equation
+clear
+close all
+
+rng(1,'twister');
+
+sequence_length = 5000;
 memory_length = 10;
 Nodes = 30;
 % split of data set 60/20/20 train/val/test

@@ -1,6 +1,12 @@
 % NARMA-10 Sample & Hold (√), Random Masking (√)
 % To run NARMA equation
-sequence_length = 10000;
+
+clear
+close all
+
+rng(1,'twister');
+
+sequence_length = 5000;
 memory_length = 10;
 Nodes = 30;
 % split of data set 60/20/20 train/val/test
@@ -10,10 +16,10 @@ config.train_fraction=0.6; config.val_fraction=0.2; config.test_fraction=0.2;
 config.memoryLength = '{10,5}'; %[0,0.5]
 
 % Generating time data to input
-A = 0; % Starting time --- in order to make T = TFinal
-S = 0.01; % Step
+start_time = 0; % Starting time --- in order to make T = TFinal
+step_size = 0.01; % Step
 N = sequence_length * Nodes; % Number of values
-T = A+S*(0:N-1); % Generate time in matrix
+T = start_time+step_size*(0:N-1); % Generate time in matrix
 AinputSequence = repelem (inputSequence,Nodes);
 
 % Masking ()
@@ -27,8 +33,8 @@ inputSequence = [T(:),BinputSequence];
 B = 0.32;
 G = 0.55;
 n = 0.12;
-TDelay = S;
-TFinal = S*N;
+TDelay = step_size;
+TFinal = step_size*N;
 sim('MG1.slx');
 
 % Training

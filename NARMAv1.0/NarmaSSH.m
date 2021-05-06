@@ -1,25 +1,24 @@
 % NARMA-10 Sample & Hold (√), Masking (×)
 % To run NARMA equation
-sequence_length = 10000;
+sequence_length = 5000;
 memory_length = 10;
 Nodes = 30;
 % split of data set 60/20/20 train/val/test
 config.train_fraction=0.6; config.val_fraction=0.2; config.test_fraction=0.2;
-[inputSequence, outputSequence] = generate_new_NARMA_sequence(sequence_length,memory_length);
-
+[inputSequence, outputSequence] = generate_new_NARMA_sequence(sequence_length,memory_length,0,0.5);
 config.memoryLength = '{10,5}'; %[0,0.5]
 
-A = 0; % Starting time --- in order to make T = TFinal
-S = 0.01; % Step
+start_time = 0; % Starting time --- in order to make T = TFinal
+step_size = 0.01; % Step
 N = sequence_length * Nodes; % Number of values
-T = A+S*(0:N-1); % Generate time in matrix
+timeline = start_time + step_size*(0:N-1); % Generate time in matrix
 % Sample & Hold
 inputSequence = repelem (inputSequence,Nodes);
-inputSequence = [T(:),inputSequence(:)];
+inputSequence = [timeline(:),inputSequence(:)];
 
 % Run Mackey-Glass simulation
-TDelay = S;
-TFinal = S*N;
+TDelay = step_size;
+TFinal = step_size*N;
 sim('MG1.slx');
 
 % Training

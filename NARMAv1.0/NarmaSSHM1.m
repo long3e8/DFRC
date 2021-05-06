@@ -12,10 +12,10 @@ config.train_fraction=0.6; config.val_fraction=0.2; config.test_fraction=0.2;
 config.memoryLength = '{10,5}'; %[0,0.5]
 
 % Generating time data to input
-A = 0.01; % Starting time --- in order to make T = TFinal
-S = 0.01; % Step
+start_time = 0; % Starting time --- in order to make T = TFinal
+step_size = 0.01; % Step
 N = sequence_length * Nodes; % Number of values
-T = A+S*(0:N-1); % Generate time in matrix
+timeine = start_time+step_size*(0:N-1); % Generate time in matrix
 AinputSequence = repelem (inputSequence,Nodes);
 
 % Masking ()
@@ -24,21 +24,21 @@ masking = repmat(r,sequence_length,1);
 
 BinputSequence = masking .* AinputSequence + AinputSequence;
 
-inputSequence = [T(:),BinputSequence];
+inputSequence = [timeine(:),BinputSequence];
 
 % Run Mackey-Glass simulation
 B = 0.32;
 G = 0.55;
 n = 0.12;
-TDelay = S;
-TFinal = S*N;
+TDelay = step_size;
+TFinal = step_size*N;
 sim('MG1.slx');
 
 % Training
 % For N nodes and k time steps, the result is a (N*k)-dimensional reservoir state matrix
 res_matrix = [ans.simout ans.simout1].';
 res_matrix(:,1) = [];
-% Morore-Penrose pseudo-inverse, which allows to avoid problems with
+% Moore-Penrose pseudo-inverse, which allows to avoid problems with
 % ill-conditioned matrices.
 % Weighted average of matrix
 yt = repelem(outputSequence,Nodes).';

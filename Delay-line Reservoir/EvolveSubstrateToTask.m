@@ -23,7 +23,7 @@ end
 
 % type of network to evolve
 config.res_type = 'DL';             % state type of reservoir(s) to use. E.g. 'RoR' (Reservoir-of-reservoirs/ESNs), 'ELM' (Extreme learning machine), 'Graph' (graph network with multiple functions), 'DL' (delay line reservoir) etc. Check 'selectReservoirType.m' for more.
-config.num_nodes = [50];                   % num of nodes in each sub-reservoir, e.g. if config.num_nodes = [10,5,15], there would be 3 sub-reservoirs with 10, 5 and 15 nodes each.
+config.num_nodes = [30];                   % num of nodes in each sub-reservoir, e.g. if config.num_nodes = [10,5,15], there would be 3 sub-reservoirs with 10, 5 and 15 nodes each.
 config = selectReservoirType(config);         % collect function pointers for the selected reservoir type
 
 %% Evolutionary parameters
@@ -38,7 +38,7 @@ config.error_to_check = 'train&val&test';    % printed error includes all three 
 
 %% Task parameters
 config.discrete = 0;               % select '1' for binary input for discrete systems
-config.nbits = 16;                 % only applied if config.discrete = 1; if wanting to convert data for binary/discrete systems
+%config.nbits = 16;                 % only applied if config.discrete = 1; if wanting to convert data for binary/discrete systems
 config.dataset = 'attractor';          % Task to evolve for
 
 % get any additional params. This might include:

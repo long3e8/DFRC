@@ -10,7 +10,7 @@ close all
 rng(1,'twister');
 
 %% Setup
-sequenceLength = 5000;
+sequenceLength = 10000;
 memoryLength = 10;
 Nodes = 30;
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
@@ -22,7 +22,6 @@ config.test_fraction=0.2;
 config.memoryLength = '{10,5}'; %[0,0.5]
 
 %% input Sequence with time dimension
-
 start_time = 0; % Starting time --- in order to make T = TFinal
 step_size = 0.01; % Step
 N = sequenceLength * Nodes; % Number of values
@@ -41,7 +40,6 @@ n = 0.12;
 sim('MG1.slx');
 
 %% Training --- lack of training process!
-
 % For N nodes and k time steps, the result is a (N*k)-dimensional reservoir state matrix
 res_matrix = [ans.simout1 ans.simout].';
 res_matrix(:,1) = [];
@@ -53,7 +51,6 @@ yt = repelem(outputSequence,Nodes).';
 w = yt * pinv(res_matrix);
 
 %% Demultiplexing
-
 system_output = w * res_matrix;
 yt = yt(1:Nodes:end,1:Nodes:end);
 system_output = system_output(1:Nodes:end,1:Nodes:end);

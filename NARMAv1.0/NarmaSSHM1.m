@@ -45,7 +45,7 @@ TDelay = step_size;
 TFinal = step_size*N;
 sim('MG1.slx');
 
-%% Training  --- lack of process!!!
+%% Training
 % For N nodes and k time steps, the result is a (N*k)-dimensional reservoir
 % state matrix
 res_matrix = [ans.simout ans.simout1].';

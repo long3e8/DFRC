@@ -1,10 +1,12 @@
-% NARMA-10 Sample & Hold (√), Random Masking (√)
+%% NARMA-10 Sample & Hold (√), Random Masking (√)
 % To run NARMA equation
 
 clear
 close all
 
 rng(1,'twister');
+
+%% Setup
 
 sequence_length = 5000;
 memory_length = 10;
@@ -15,6 +17,7 @@ config.train_fraction=0.6; config.val_fraction=0.2; config.test_fraction=0.2;
 
 config.memoryLength = '{10,5}'; %[0,0.5]
 
+%% input Sequence with time dimension
 % Generating time data to input
 start_time = 0; % Starting time --- in order to make T = TFinal
 step_size = 0.01; % Step
@@ -22,14 +25,14 @@ N = sequence_length * Nodes; % Number of values
 T = start_time+step_size*(0:N-1); % Generate time in matrix
 AinputSequence = repelem (inputSequence,Nodes);
 
-% Masking ()
+%% Masking ()
 r = rand(Nodes,1);
 masking = repmat(r,sequence_length,1);
 BinputSequence = masking .* AinputSequence + AinputSequence;
 
 inputSequence = [T(:),BinputSequence];
 
-% Run Mackey-Glass simulation
+%% Run Mackey-Glass simulation
 B = 0.32;
 G = 0.55;
 n = 0.12;
@@ -37,7 +40,7 @@ TDelay = step_size;
 TFinal = step_size*N;
 sim('MG1.slx');
 
-% Training
+%% Training
 % For N nodes and k time steps, the result is a (N*k)-dimensional reservoir state matrix
 res_matrix = [ans.simout1 ans.simout].';
 res_matrix(:,1) = [];
@@ -46,17 +49,18 @@ res_matrix(:,1) = [];
 % Weighted average of matrix
 yt = repelem(outputSequence,Nodes).';
 res_mpp_matrix = pinv(res_matrix);
-w = yt * res_mpp_matrix;
+w = yt * pinv(res_matrix);
 
 system_output = w * res_matrix;
 
-% Demultiplexing
+%% Demultiplexing
 yt = yt(1:20:end,1:20:end);
 system_output = system_output(1:20:end,1:20:end);
 
-% Error between NARMA and Simulink model
+%% Error between NARMA and Simulink model
 nrmse_err = sqrt((sum((yt-system_output).^2)/(var(yt)))*(1/length(yt)))
 
+%% Plot
 figure(1);
  plot(system_output(800:950));
  hold on;

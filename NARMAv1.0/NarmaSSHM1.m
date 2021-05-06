@@ -14,7 +14,7 @@ memory_length = 10;
 Nodes = 30;
 % split of data set 60/20/20 train/val/test
 config.train_fraction=0.6; config.val_fraction=0.2; config.test_fraction=0.2;
-[inputSequence, outputSequence] = generate_new_NARMA_sequence(sequence_length,memory_length);
+[inputSequence, outputSequence] = generate_new_NARMA_sequence(sequence_length,memory_length,0,0.5);
 % inputSequence = 2*inputSequence-0.5;           %rescaling of data
 % outputSequence = 2*outputSequence-0.5; 
 
@@ -46,9 +46,11 @@ TFinal = step_size*N;
 sim('MG1.slx');
 
 %% Training  --- lack of process!!!
-% For N nodes and k time steps, the result is a (N*k)-dimensional reservoir state matrix
+% For N nodes and k time steps, the result is a (N*k)-dimensional reservoir
+% state matrix
 res_matrix = [ans.simout ans.simout1].';
 res_matrix(:,1) = [];
+
 % Moore-Penrose pseudo-inverse, which allows to avoid problems with
 % ill-conditioned matrices.
 % Weighted average of matrix

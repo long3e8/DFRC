@@ -2,6 +2,7 @@
 % This script is used to run NARMA-10 benchmark on Mackey-Glass dynamical
 % system with Simulink tool.
 
+% !! Lack of training and testing process for now.
 
 clear
 close all
@@ -33,7 +34,7 @@ inputSequence = [timeline(:),inputSequence(:)];
 
 %% Run Mackey-Glass in Simulink
 TDelay = step_size;
-TFinal = step_size*N;
+TFinal = step_size * N;
 B = 0.32;
 G = 0.55;
 n = 0.12;
@@ -49,8 +50,7 @@ res_matrix = flipud(res_matrix);
 % ill-conditioned matrices.
 % Weighted average of matrix
 yt = repelem(outputSequence,Nodes).';
-res_mpp_matrix = pinv(res_matrix);
-w = yt * res_mpp_matrix;
+w = yt * pinv(res_matrix);
 
 %% Demultiplexing
 
@@ -59,8 +59,8 @@ yt = yt(1:Nodes:end,1:Nodes:end);
 system_output = system_output(1:Nodes:end,1:Nodes:end);
 
 %% Error between NARMA and Simulink model
-nrmse_err = sqrt((sum((yt-system_output).^2)/(var(yt)))*(1/length(yt)))
-% nmse_err = mean((yt-system_output).^2)/var(yt)
+% nrmse_err = sqrt((sum((yt-system_output).^2)/(var(yt)))*(1/length(yt)))
+err = nrmse(yt , system_output)
 
 %% Plot
 figure(1);

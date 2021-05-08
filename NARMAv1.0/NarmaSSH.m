@@ -5,9 +5,13 @@
 clear
 close all
 
-%rng(1,'twister');
 
+loop = 10;
+err = zeros(1,loop);
+tic
+for l = 1:loop
 %% Setup
+%rng(1,'twister');
 sequenceLength = 5000;
 memoryLength = 10;
 Nodes = 30;
@@ -54,11 +58,14 @@ yt = yt(1:Nodes:end,1:Nodes:end);
 system_output = system_output(1:Nodes:end,1:Nodes:end);
 
 %% Error between NARMA and Simulink model
-nrmse_err = sqrt((sum((yt-system_output).^2)/(var(yt)))*(1/length(yt)))
+% nrmse_err = sqrt((sum((yt-system_output).^2)/(var(yt)))*(1/length(yt)))
 % err = nrmse(yt , system_output)
-% config.err_type = 'NRMSE';
-% [err] = calculateError(system_output,yt,config)
-
+config.err_type = 'NRMSE';
+err(l) = calculateError(system_output,yt,config);
+toc
+end
+% boxplot(err)
+% csvwrite('test1.csv',err);
 %% Plot
 % figure(1);
 %  plot(system_output(1100:1200));

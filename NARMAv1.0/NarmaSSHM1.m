@@ -5,10 +5,14 @@
 clear
 close all
 
-% rng(1,'twister');
 
+loop = 10;
+err = zeros(1,loop);
+tic
+for l = 1:loop
+    
 %% Setup
-
+% rng(1,'twister');
 sequence_length = 5000;
 memory_length = 10;
 Nodes = 30;
@@ -62,8 +66,9 @@ system_output = system_output(1:Nodes:end,1:Nodes:end);
 
 %% Error between NARMA and Simulink model
 config.err_type = 'NRMSE';
-[err] = calculateError(system_output,yt,config)
-
+err(l) = calculateError(system_output,yt,config);
+toc
+end
 %% Plot
 % figure(1);
 %  plot(system_output(800:950));

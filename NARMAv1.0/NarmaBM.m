@@ -4,12 +4,12 @@
 
 clear
 close all
-
+rng(1,'twister');
 
 loop = 10;
-err = zeros(1,loop);
+bm_err = zeros(1,loop);
 tic
-for n = 1:loop
+for l = 1:loop
     
 %% Setup
 % rng(1,'twister');
@@ -66,7 +66,7 @@ system_output = system_output(1:Nodes:end,1:Nodes:end);
 
 %% Error between NARMA and Simulink model
 config.err_type = 'NRMSE';
-bm_err(n) = calculateError(system_output,yt,config);
+bm_err(l) = calculateError(system_output,yt,config);
 toc
 end
 %% Plot

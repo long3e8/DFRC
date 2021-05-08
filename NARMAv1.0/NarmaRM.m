@@ -3,8 +3,8 @@
 % system with Simulink tool.
 clear
 close all
+rng(1,'twister');
 
-% rng(1,'twister');
 loop = 10;
 err = zeros(1,loop);
 tic
@@ -51,7 +51,6 @@ res_matrix(:,1) = [];
 % ill-conditioned matrices.
 % Weighted average of matrix
 yt = repelem(outputSequence,Nodes).';
-res_mpp_matrix = pinv(res_matrix);
 w = yt * pinv(res_matrix);
 
 system_output = w * res_matrix;

@@ -61,7 +61,7 @@ system_output = system_output(1:Nodes:end,1:Nodes:end);
 % nrmse_err = sqrt((sum((yt-system_output).^2)/(var(yt)))*(1/length(yt)))
 % err = nrmse(yt , system_output)
 config.err_type = 'NRMSE';
-err(l) = calculateError(system_output,yt,config);
+sh_err(l) = calculateError(system_output,yt,config);
 toc
 end
 % boxplot(err)

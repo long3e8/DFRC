@@ -1,10 +1,10 @@
 %% NARMA-10 Sample & Hold (√), Random Masking (√)
-% To run NARMA equation
-
+% This script is used to run NARMA-10 benchmark on Mackey-Glass dynamical
+% system with Simulink tool.
 clear
 close all
 
-rng(1,'twister');
+% rng(1,'twister');
 
 %% Setup
 
@@ -35,14 +35,14 @@ inputSequence = [T(:),BinputSequence];
 %% Run Mackey-Glass simulation
 B = 0.32;
 G = 0.55;
-n = 0.12;
+n = 0.002;
 TDelay = step_size;
 TFinal = step_size*N;
 sim('MG1.slx');
 
 %% Training
 % For N nodes and k time steps, the result is a (N*k)-dimensional reservoir state matrix
-res_matrix = [ans.simout1 ans.simout].';
+res_matrix = [ans.simout1].';
 res_matrix(:,1) = [];
 % Morore-Penrose pseudo-inverse, which allows to avoid problems with
 % ill-conditioned matrices.
@@ -54,15 +54,16 @@ w = yt * pinv(res_matrix);
 system_output = w * res_matrix;
 
 %% Demultiplexing
-yt = yt(1:20:end,1:20:end);
-system_output = system_output(1:20:end,1:20:end);
+yt = yt(1:Nodes:end,1:Nodes:end);
+system_output = system_output(1:Nodes:end,1:Nodes:end);
 
 %% Error between NARMA and Simulink model
-nrmse_err = sqrt((sum((yt-system_output).^2)/(var(yt)))*(1/length(yt)))
+config.err_type = 'NRMSE';
+[err] = calculateError(system_output,yt,config)
 
 %% Plot
-figure(1);
- plot(system_output(800:950));
- hold on;
- plot(yt(800:950));
- legend('System Output','Desired Output');
+% figure(1);
+%  plot(system_output(800:950));
+%  hold on;
+%  plot(yt(800:950));
+%  legend('System Output','Desired Output');

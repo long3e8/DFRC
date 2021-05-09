@@ -1,7 +1,6 @@
 %% NARMA-10 Sample & Hold (√), Masking (×)
 % This script is used to run NARMA-10 benchmark on Mackey-Glass dynamical
 % system with Simulink tool.
-
 clear
 close all
 rng(1,'twister');
@@ -9,7 +8,7 @@ rng(1,'twister');
 loop = 10;
 sh_err = zeros(1,loop);
 tic
-for l = 1:loop
+for j = 1:loop
 %% Setup
 %rng(1,'twister');
 sequenceLength = 5000;
@@ -61,7 +60,7 @@ system_output = system_output(1:Nodes:end,1:Nodes:end);
 % nrmse_err = sqrt((sum((yt-system_output).^2)/(var(yt)))*(1/length(yt)))
 % err = nrmse(yt , system_output)
 config.err_type = 'NRMSE';
-sh_err(l) = calculateError(system_output,yt,config);
+sh_err(j) = calculateError(system_output,yt,config);
 save('sh_output.mat','sh_err');
 toc
 end

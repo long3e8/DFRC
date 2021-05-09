@@ -1,3 +1,6 @@
+% This script makes box plots of MG reservoir with different
+% Time-multiplexing
+
 NarmaSH
 NarmaBM
 NarmaRM

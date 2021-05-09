@@ -5,7 +5,7 @@ clear
 close all
 rng(1,'twister');
 
-loop = 10;
+loop = 1;
 sh_err = zeros(1,loop);
 tic
 for i = 1:loop
@@ -42,7 +42,7 @@ sim('MG1.slx');
 
 %% Training
 % For N nodes and k time steps, the result is a (N*k)-dimensional reservoir state matrix
-res_matrix = [ans.simout3].';
+res_matrix = [ans.simout1].';
 res_matrix(:,1) = [];
 res_matrix = flipud(res_matrix);
 % Moore-Penrose pseudo-inverse, which allows to avoid problems with
@@ -61,12 +61,12 @@ system_output = system_output(1:Nodes:end,1:Nodes:end);
 % err = nrmse(yt , system_output)
 config.err_type = 'NRMSE';
 sh_err(i) = calculateError(system_output,yt,config);
-save('sh_output(10).mat','sh_err');
+save('sh_output(301).mat','sh_err');
 toc
 end
 % boxplot(err)
 % csvwrite('test1.csv',err);
-%% Plot
+% Plot
 % figure(1);
 %  plot(system_output(1100:1200));
 %  hold on;

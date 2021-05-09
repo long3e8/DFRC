@@ -8,7 +8,7 @@ rng(1,'twister');
 loop = 10;
 rm_err = zeros(1,loop);
 tic
-for j = 1:loop
+for i = 1:loop
 %% Setup
 
 sequence_length = 5000;
@@ -45,7 +45,7 @@ sim('MG1.slx');
 
 %% Training
 % For N nodes and k time steps, the result is a (N*k)-dimensional reservoir state matrix
-res_matrix = [ans.simout1].';
+res_matrix = [ans.simout2].';
 res_matrix(:,1) = [];
 % Morore-Penrose pseudo-inverse, which allows to avoid problems with
 % ill-conditioned matrices.
@@ -61,8 +61,8 @@ system_output = system_output(1:Nodes:end,1:Nodes:end);
 
 %% Error between NARMA and Simulink model
 config.err_type = 'NRMSE';
-rm_err(j) = calculateError(system_output,yt,config);
-save('rm_output.mat','rm_err')
+rm_err(i) = calculateError(system_output,yt,config);
+save('rm_output(15).mat','rm_err')
 toc
 end
 

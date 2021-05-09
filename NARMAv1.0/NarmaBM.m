@@ -9,7 +9,7 @@ rng(1,'twister');
 loop = 10;
 bm_err = zeros(1,loop);
 tic
-for j = 1:loop
+for i = 1:loop
     
 %% Setup
 % rng(1,'twister');
@@ -49,7 +49,7 @@ sim('MG1.slx');
 %% Training
 % For N nodes and k time steps, the result is a (N*k)-dimensional reservoir
 % state matrix
-res_matrix = [ans.simout1].';
+res_matrix = [ans.simout2].';
 res_matrix(:,1) = [];
 
 % Moore-Penrose pseudo-inverse, which allows to avoid problems with
@@ -66,8 +66,8 @@ system_output = system_output(1:Nodes:end,1:Nodes:end);
 
 %% Error between NARMA and Simulink model
 config.err_type = 'NRMSE';
-bm_err(j) = calculateError(system_output,yt,config);
-save('bm_output.mat','bm_err');
+bm_err(i) = calculateError(system_output,yt,config);
+save('bm_output(15).mat','bm_err');
 toc
 end
 %% Plot

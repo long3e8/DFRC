@@ -67,6 +67,7 @@ system_output = system_output(1:Nodes:end,1:Nodes:end);
 %% Error between NARMA and Simulink model
 config.err_type = 'NRMSE';
 bm_err(l) = calculateError(system_output,yt,config);
+save('bm_output.mat','bm_err');
 toc
 end
 %% Plot

@@ -7,7 +7,7 @@ close all
 rng(1,'twister');
 
 loop = 10;
-err = zeros(1,loop);
+sh_err = zeros(1,loop);
 tic
 for l = 1:loop
 %% Setup
@@ -62,7 +62,7 @@ system_output = system_output(1:Nodes:end,1:Nodes:end);
 % err = nrmse(yt , system_output)
 config.err_type = 'NRMSE';
 sh_err(l) = calculateError(system_output,yt,config);
-save('output.mat','sh_err')
+save('sh_output.mat','sh_err');
 toc
 end
 % boxplot(err)

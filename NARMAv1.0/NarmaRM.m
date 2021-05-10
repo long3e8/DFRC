@@ -5,7 +5,7 @@ clear
 close all
 rng(1,'twister');
 
-loop = 50;
+loop = 10;
 rm_err = zeros(1,loop);
 tic
 for i = 1:loop
@@ -62,7 +62,7 @@ system_output = system_output(1:Nodes:end,1:Nodes:end);
 %% Error between NARMA and Simulink model
 config.err_type = 'NRMSE';
 rm_err(i) = calculateError(system_output,yt,config);
-save('rm_output(301).mat','rm_err')
+save('rm_output(30).mat','rm_err')
 toc
 end
 

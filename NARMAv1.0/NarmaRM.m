@@ -5,7 +5,7 @@ clear
 close all
 rng(1,'twister');
 
-loop = 10;
+loop = 1;
 rm_err = zeros(1,loop);
 tic
 for i = 1:loop

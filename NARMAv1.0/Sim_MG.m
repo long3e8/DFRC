@@ -8,14 +8,17 @@ n = n;
 sim('MG1.slx');
 
 % For N nodes and k time steps, the result is a (N*k)-dimensional reservoir state matrix
-switch(config.connectivity)
+switch(config.connect_type)
     
     case '30'
         state_matrix = [ans.simout1].';
         state_matrix(:,1) = [];
         state_matrix = flipud(state_matrix); 
 
-        
+    case '15'
+        state_matrix = [ans.simout2,ans.simout3].';
+        state_matrix(:,1) = [];
+        state_matrix = flipud(state_matrix); 
         
     otherwise
         state_matrix = [];

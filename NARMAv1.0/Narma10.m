@@ -11,7 +11,7 @@ tic
 for i = 1:loop
 %% Setup
 %rng(1,'twister');
-sequenceLength = 5000;
+sequenceLength = 10000;
 memoryLength = 10;
 Nodes = 30;
 theta = 0.01;
@@ -32,34 +32,30 @@ config.masking_type = 'Random Mask';  % select between 'Binary Mask','Random Mas
 TFinal = theta * sequenceLength * Nodes;
 coupling = 0.32;
 decay_rate = 0.55;
-n = 0.002; % Nonlinearity
-config.connectivity = '30'; % Connectivity
+n = 0.02; % Nonlinearity
+config.connect_type = '30'; % Connectivity
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,config);
 
 %% Training
 % Moore-Penrose pseudo-inverse, which allows to avoid problems with
 % ill-conditioned matrices.
 % Weighted average of matrix
-yt = repelem(outputSequence,Nodes).';
-w = yt * pinv(state_matrix);
+target_output = repelem(outputSequence,Nodes).';
+w = target_output * pinv(state_matrix);
 
 %% Demultiplexing
 system_output = w * state_matrix;
-yt = yt(1:Nodes:end,1:Nodes:end);
-
 system_output = system_output(1:Nodes:end,1:Nodes:end);
+target_output = target_output(1:Nodes:end,1:Nodes:end);
 
-%% Error between NARMA and Simulink model
-% nrmse_err = sqrt((sum((yt-system_output).^2)/(var(yt)))*(1/length(yt)))
-% err = nrmse(yt , system_output)
+%% Evaluation
 config.err_type = 'NRMSE';
-err(i) = calculateError(system_output,yt,config);
+err(i) = calculateError(system_output,target_output,config);
 % save('sh_output(30).mat','sh_err');
 toc
 end
 % boxplot(err)
-% csvwrite('test1.csv',err);
-% Plot
+
 % figure(1);
 %  plot(system_output(1100:1200));
 %  hold on;

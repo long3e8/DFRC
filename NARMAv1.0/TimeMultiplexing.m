@@ -1,7 +1,6 @@
-function [System_inputSequence] = TimeMultiplexing(inputSequence,Nodes,sequenceLength,config)
+function [System_inputSequence] = TimeMultiplexing(inputSequence,Nodes,sequenceLength,theta,config)
 
     start_time = 0; % Starting time --- in order to make T = TFinal
-    theta = 0.01; % Step
     N = sequenceLength * Nodes; % Number of values
     timeline = start_time + theta*(0:N-1); % Generate time in matrix
     

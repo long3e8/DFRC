@@ -71,8 +71,8 @@ bm_err(i) = calculateError(system_output,yt,config)
 toc
 end
 %% Plot
-% figure(1);
-%  plot(system_output(800:950));
-%  hold on;
-%  plot(yt(800:950));
-%  legend('System Output','Desired Output');
+figure(1);
+ plot(system_output(800:950));
+ hold on;
+ plot(yt(800:950));
+ legend('System Output','Desired Output');

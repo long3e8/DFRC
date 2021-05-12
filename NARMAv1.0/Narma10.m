@@ -1,12 +1,12 @@
-%% NARMA-10 Sample & Hold (√), Masking (×)
+%% NARMA-10 Benchmark Task
 % This script is used to run NARMA-10 benchmark on Mackey-Glass dynamical
 % system with Simulink tool.
 clear
 close all
 rng(1,'twister');
 
-loop = 10;
-sh_err = zeros(1,loop);
+loop = 1;
+err = zeros(1,loop);
 tic
 for i = 1:loop
 %% Setup
@@ -22,19 +22,13 @@ config.val_fraction=0.2;
 config.test_fraction=0.2;
 config.memoryLength = '{10,5}'; %[0,0.5]
 
-%% input Sequence with time dimension
-start_time = 0; % Starting time --- in order to make T = TFinal
-theta = 0.01; % Step
-N = sequenceLength * Nodes; % Number of values
-timeline = start_time + theta*(0:N-1); % Generate time in matrix
-
-% Sample & Hold
-inputSequence = repelem (inputSequence,Nodes);
-inputSequence = [timeline(:),inputSequence(:)];
+%% Time-multiplexing
+config.masking_type = 'Random Mask';  % select between 'Binary Mask','Random Mask','Sample and Hold'
+[System_inputSequence] = TimeMultiplexing(inputSequence,Nodes,sequenceLength,config);
 
 %% Run Mackey-Glass in Simulink
-TDelay = theta;
-TFinal = theta * N;
+theta = 0.01;
+TFinal = theta * sequenceLength * Nodes;
 B = 0.32;
 G = 0.55;
 n = 0.002;
@@ -60,8 +54,8 @@ system_output = system_output(1:Nodes:end,1:Nodes:end);
 % nrmse_err = sqrt((sum((yt-system_output).^2)/(var(yt)))*(1/length(yt)))
 % err = nrmse(yt , system_output)
 config.err_type = 'NRMSE';
-sh_err(i) = calculateError(system_output,yt,config);
-save('sh_output(30).mat','sh_err');
+err(i) = calculateError(system_output,yt,config);
+% save('sh_output(30).mat','sh_err');
 toc
 end
 % boxplot(err)

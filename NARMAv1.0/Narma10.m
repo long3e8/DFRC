@@ -19,8 +19,8 @@ config.memoryLength = '{10,5}'; %[0,0.5]
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
 
 % split of data set 60/20/20 train/val/test
-config.train_fraction=0.6; 
-config.val_fraction=0.2; 
+config.train_fraction=0.6;
+config.val_fraction=0.2;
 config.test_fraction=0.2;
 % [individual,test_states,test_sequence] = testReservoir(individual,config);
 
@@ -33,7 +33,7 @@ TFinal = theta * sequenceLength * Nodes;
 coupling = 0.32;
 decay_rate = 0.55;
 n = 0.02; % Nonlinearity
-config.connect_type = '30'; % Connectivity
+config.connect_type = '15'; % Connectivity
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,config);
 
 %% Training

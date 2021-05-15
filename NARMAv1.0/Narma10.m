@@ -6,7 +6,8 @@ close all
 rng(1,'twister');
 
 loop = 1;
-train_err = zeros(1,loop);
+train_error = zeros(1,loop);
+test_error = zeros(1,loop);
 tic
 for i = 1:loop
 %% Setup
@@ -31,15 +32,21 @@ config.connect_type = '30'; % Connectivity: '30','15','10','5','2'
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,config);
 
 %% Training
-[system_output_sequence,target_output_sequence] = train_test(state_matrix, outputSequence, sequenceLength, nodes);
-
-%% Demultiplexing
-% system_output = system_output(1:nodes:end,1:nodes:end);
-% target_output = target_output(1:nodes:end,1:nodes:end);
+[system_train_output_sequence,target_train_output_sequence,system_test_sequence,target_test_output_sequence] ...
+    = train_test(state_matrix, outputSequence, sequenceLength, nodes);
 
 %% Evaluation
 config.err_type = 'NRMSE';
-train_err(i) = calculateError(system_output_sequence,target_output_sequence,config)
+    train_error(i) = calculateError(system_train_output_sequence,target_train_output_sequence,config)
+    test_error(i) = calculateError(system_test_sequence,target_test_output_sequence,config)
+    
+% %% Demultiplexing
+% system_test_sequence = system_test_sequence(:,1);
+% target_test_output_sequence = target_test_output_sequence(:,1);
+% 
+% plot(system_test_sequence(100:200));
+% hold on;
+% plot(target_test_output_sequence(100:200));
 
 toc
 end

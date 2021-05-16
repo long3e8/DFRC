@@ -1,5 +1,5 @@
-function [system_train_output_sequence,target_train_output_sequence,system_test_sequence,target_test_output_sequence]...
-            = train_test(state_matrix, outputSequence, sequenceLength, nodes)
+function [system_train_output_sequence,target_train_output_sequence,system_test_output_sequence,...
+    target_test_output_sequence] = train_test(state_matrix, outputSequence, sequenceLength, nodes)
 
 % Split split of data set 60/20/20 train/test
 train_state = state_matrix(:,1:0.6*nodes*sequenceLength);
@@ -25,7 +25,7 @@ reg_param = [10e-1 10e-3 10e-5 10e-7 10e-9 10e-11];
     end
     output_weights(isnan(output_weights)) = 0;
 
-    system_test_sequence = output_weights * test_state;
+    system_test_output_sequence = output_weights * test_state;
     
     
 end

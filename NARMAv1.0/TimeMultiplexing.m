@@ -15,7 +15,7 @@ switch(config.masking_type)
         
         inputSequence = repelem (inputSequence,nodes);
         
-        r = -0.5 + 0.1.*rand(nodes,1);
+        r = randi([-1 1],nodes,1);
         masking = repmat(r,sequenceLength,1);
 
         inputSequence = masking .* inputSequence + inputSequence;

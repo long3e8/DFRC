@@ -20,7 +20,7 @@ config.memoryLength = '{10,5}'; %[0,0.5]
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
 
 %% Time-multiplexing
-config.masking_type = 'Binary Mask';  % select between 'Binary Mask','Random Mask','Sample and Hold'
+config.masking_type = 'Random Mask';  % select between 'Binary Mask','Random Mask','Sample and Hold'
 [system_inputSequence] = TimeMultiplexing(inputSequence,nodes,sequenceLength,theta,config);
 
 %% Run Mackey-Glass in Simulink
@@ -32,23 +32,27 @@ config.connect_type = '30'; % Connectivity: '30','15','10','5','2'
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,config);
 
 %% Training
-[system_train_output_sequence,target_train_output_sequence,system_test_sequence,target_test_output_sequence] ...
+[system_train_output_sequence,target_train_output_sequence,system_test_output_sequence,target_test_output_sequence] ...
     = train_test(state_matrix, outputSequence, sequenceLength, nodes);
 
 %% Evaluation
 config.err_type = 'NRMSE';
-    train_error(i) = calculateError(system_train_output_sequence,target_train_output_sequence,config)
-    test_error(i) = calculateError(system_test_sequence,target_test_output_sequence,config)
+    train_error(i) = calculateError(system_train_output_sequence,target_train_output_sequence,config);
+    test_error(i) = calculateError(system_test_output_sequence,target_test_output_sequence,config);
     
 % %% Demultiplexing
-% system_test_sequence = system_test_sequence(:,1);
-% target_test_output_sequence = target_test_output_sequence(:,1);
-% 
-% plot(system_test_sequence(100:200));
-% hold on;
-% plot(target_test_output_sequence(100:200));
+config.plot_type = 'train set';
+[target_plot,system_plot] = demultiplexing(system_train_output_sequence,target_train_output_sequence,...
+    system_test_output_sequence,target_test_output_sequence,config);
+
+%% Plot
+plot(target_plot(800:900),'r');
+hold on;
+plot(system_plot(800:900),'b')
+
 
 toc
 end
-% err = mean(err(i))
-% boxplot(err)
+% train_err = mean(train_error(i))
+% test_err = mean(test_error(i))
+% boxplot(train_error)

@@ -34,5 +34,5 @@ switch(config.masking_type)
         
         otherwise
         
-        system_inputSequence = inputSequence;
+        system_inputSequence = [];
 end

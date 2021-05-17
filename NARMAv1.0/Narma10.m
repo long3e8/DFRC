@@ -32,7 +32,7 @@ TFinal = theta * sequenceLength * nodes;
 coupling = 2;
 decay_rate = 1;
 n = 9.65; % Nonlinearity
-config.connect_type = '15'; % Connectivity: '30','15','10','5','2'
+config.connect_type = '30'; % Connectivity: '30','15','10','5','2'
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,config);
 
 %% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout = B * pinv(A)

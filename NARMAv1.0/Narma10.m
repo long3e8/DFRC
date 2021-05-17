@@ -5,7 +5,7 @@
 clear
 close all
 
-loop = 10;
+loop = 20;
 train_error = zeros(1,loop);
 test_error = zeros(1,loop);
 rng(1,'twister');
@@ -23,7 +23,7 @@ config.memoryLength = '{10,5}'; %[0,0.5]
 
 %% Time-multiplexing
 
-config.masking_type = 'Sample and Hold';  % select between 'Binary Mask','Random Mask','Sample and Hold'
+config.masking_type = 'Random Mask';  % select between 'Sample and Hold','Binary Mask','Random Mask'
 [system_inputSequence] = TimeMultiplexing(inputSequence,nodes,sequenceLength,theta,config);
 
 %% Run Mackey-Glass in Simulink
@@ -32,7 +32,7 @@ TFinal = theta * sequenceLength * nodes;
 coupling = 2;
 decay_rate = 1;
 n = 9.65; % Nonlinearity
-config.connect_type = '30'; % Connectivity: '30','15','10','5','2'
+config.connect_type = '15'; % Connectivity: '30','15','10','5','2'
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,config);
 
 %% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout = B * pinv(A)

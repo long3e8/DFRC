@@ -5,7 +5,7 @@
 clear
 close all
 
-loop = 20;
+loop = 1;
 train_error = zeros(1,loop);
 test_error = zeros(1,loop);
 rng(1,'twister');
@@ -32,7 +32,7 @@ TFinal = theta * sequenceLength * nodes;
 coupling = 2;
 decay_rate = 1;
 n = 9.65; % Nonlinearity
-config.connect_type = '15'; % Connectivity: '30','15','10','5','2'
+config.connect_type = '2'; % Connectivity: '30','15','10','5','2'
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,config);
 
 %% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout = B * pinv(A)

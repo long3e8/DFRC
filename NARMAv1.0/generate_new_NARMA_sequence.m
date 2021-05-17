@@ -1,4 +1,4 @@
-function [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength, lowerDist,upperDist)
+function [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength, lowerDist,upperDist,seed)
 % Generates a sequence using a nonlinear autoregressive moving average
 % (NARMA) model. The sequence at the beginning includes a  ramp-up
 % transient, which should be deleted if necessary. The NARMA equation to be
@@ -28,7 +28,7 @@ if (nargin<3)
 end
 
 %previously used to initiate random seed 
-rng(1,'twister');
+rng(seed,'twister');
 washout =1000;
 
 %%%% create input (set to between a distribution given by default or user

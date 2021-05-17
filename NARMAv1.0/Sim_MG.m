@@ -16,12 +16,12 @@ switch(config.connect_type)
         state_matrix = flipud(state_matrix); 
 
     case '15'
-        state_matrix = [ans. simout2 ans.simout3].';
+        state_matrix = [ans. simout2;ans.simout3].';
         state_matrix(:,1) = [];
         state_matrix = flipud(state_matrix); 
         
     case '10'
-        state_matrix = [ans.simout4,ans.simout5].';
+        state_matrix = [ans.simout4;ans.simout5].';
         state_matrix(:,1) = [];
         state_matrix = flipud(state_matrix);
         

@@ -28,7 +28,7 @@ if (nargin<3)
 end
 
 %previously used to initiate random seed 
-rng(1,'twister');
+% rng(1,'twister');
 washout =1000;
 
 %%%% create input (set to between a distribution given by default or user

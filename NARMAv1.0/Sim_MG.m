@@ -5,7 +5,7 @@ coupling = coupling;
 decay_rate = decay_rate;
 n = n;
 
-sim('MackeyGlass19.slx');
+sim('MackeyGlass.slx');
 
 % For N nodes and k time steps, the result is a (N*k)-dimensional reservoir state matrix
 switch(config.connect_type)

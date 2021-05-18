@@ -5,12 +5,15 @@
 clear
 close all
 
-loop = 1;
-train_error = zeros(1,loop);
-test_error = zeros(1,loop);
+loop = 10;
+train_err = zeros(5,loop);
+test_err = zeros(5,loop);
+
 rng(1,'twister');
 
-tic
+t1 = [2,5,10,15,30];
+for j = 1:5
+
 for i = 1:loop
 %% Setup
 sequenceLength = 2000;
@@ -32,7 +35,7 @@ TFinal = theta * sequenceLength * nodes;
 coupling = 2;
 decay_rate = 1;
 n = 9.65; % Nonlinearity
-config.connect_type = '2'; % Connectivity: '30','15','10','5','2'
+config.connect_type = num2str(t1(j)); % Connectivity: '30','15','10','5','2'
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,config);
 
 %% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout = B * pinv(A)
@@ -43,9 +46,11 @@ config.connect_type = '2'; % Connectivity: '30','15','10','5','2'
 %% Evaluation
 
 config.err_type = 'NRMSE';
-    train_error(i) = calculateError(system_train_output_sequence,target_train_output_sequence,config);
-    test_error(i) = calculateError(system_test_output_sequence,target_test_output_sequence,config);
+    train_error = calculateError(system_train_output_sequence,target_train_output_sequence,config);
+    test_error = calculateError(system_test_output_sequence,target_test_output_sequence,config);
     
+    train_err(j,i) = train_error;
+    test_err(j,i) = test_error;
 %% Demultiplexing
 
 % config.plot_type = 'test set';
@@ -62,9 +67,11 @@ config.err_type = 'NRMSE';
 % ylabel('x(t)')
 % legend('target output','system output')
 
-toc
 
 end
+end
+save '1.mat' test_error
+
 % x1 = train_error';
 % x2 = test_error';
 % boxplot([x1,x2],'Notch','on','Labels',{'mu = 5','mu = 6'})

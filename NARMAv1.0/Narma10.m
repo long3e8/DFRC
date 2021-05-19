@@ -5,13 +5,14 @@
 clear
 close all
 
-loop = 10;
-train_err = zeros(5,loop);
-test_err = zeros(5,loop);
+loop = 50;
+train_err_sh = zeros(loop,5);
+test_err_sh = zeros(loop,5);
 
 rng(1,'twister');
 
 t1 = [2,5,10,15,30];
+t2 = [1,2,3]; % Masking --- See TimeMultiplexing.m
 for j = 1:5
 
 for i = 1:loop
@@ -25,8 +26,8 @@ config.memoryLength = '{10,5}'; %[0,0.5]
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
 
 %% Time-multiplexing
-
-config.masking_type = 'Random Mask';  % select between 'Sample and Hold','Binary Mask','Random Mask'
+config.masking_type = '1'; % select between '1 = Sample and Hold','2 = Binary Mask','3 = Random Mask'
+% config.masking_type = num2str(t2(j));  
 [system_inputSequence] = TimeMultiplexing(inputSequence,nodes,sequenceLength,theta,config);
 
 %% Run Mackey-Glass in Simulink
@@ -36,6 +37,7 @@ coupling = 2;
 decay_rate = 1;
 n = 9.65; % Nonlinearity
 config.connect_type = num2str(t1(j)); % Connectivity: '30','15','10','5','2'
+% config.connect_type = '30';
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,config);
 
 %% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout = B * pinv(A)
@@ -49,8 +51,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_output_sequence,config);
     test_error = calculateError(system_test_output_sequence,target_test_output_sequence,config);
     
-    train_err(j,i) = train_error;
-    test_err(j,i) = test_error;
+    train_err_sh(i,j) = train_error;
+    test_err_sh(i,j) = test_error;
 %% Demultiplexing
 
 % config.plot_type = 'test set';
@@ -70,8 +72,7 @@ config.err_type = 'NRMSE';
 
 end
 end
-save '1.mat' test_error
-
+save 'sh_connect.mat' test_err_sh train_err_sh
 % x1 = train_error';
 % x2 = test_error';
 % boxplot([x1,x2],'Notch','on','Labels',{'mu = 5','mu = 6'})

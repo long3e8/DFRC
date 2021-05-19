@@ -6,12 +6,12 @@ function [system_inputSequence] = TimeMultiplexing(inputSequence,nodes,sequenceL
     
 switch(config.masking_type)
    
-    case 'Sample and Hold'
+    case '1' % Sample and Hold
         AinputSequence = repelem (inputSequence,nodes);
         system_inputSequence = [timeline(:),AinputSequence(:)];
     
         
-    case 'Binary Mask'
+    case '2' % Binary Masking
         
         inputSequence = repelem (inputSequence,nodes);
         
@@ -22,7 +22,7 @@ switch(config.masking_type)
 
         system_inputSequence = [timeline(:),inputSequence];
 
-    case 'Random Mask'
+    case '3' % Random Masking
         
         inputSequence = repelem (inputSequence,nodes);
     

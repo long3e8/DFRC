@@ -1,12 +1,12 @@
 function [err] = calculateError(system_output,desired_output,config)
 
-if size(system_output,1) == size(desired_output,1)
-    config.wash_out = 0;
-elseif size(system_output,1) > size(desired_output,1)
-    system_output = system_output(config.wash_out+1:end,:);
-else
-    desired_output = desired_output(config.wash_out+1:end,:);
-end
+% if size(system_output,1) == size(desired_output,1)
+%     config.wash_out = 0;
+% elseif size(system_output,1) > size(desired_output,1)
+%     system_output = system_output(config.wash_out+1:end,:);
+% else
+%     desired_output = desired_output(config.wash_out+1:end,:);
+% end
 
 % final measured error type
 switch(config.err_type)

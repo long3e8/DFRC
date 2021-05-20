@@ -1,8 +1,8 @@
-load 2_mask.mat;
-load 5_mask.mat;
-load 10_mask.mat;
-load 15_mask.mat;
-load 30_mask.mat;
+load bkpp_2.mat;
+load bkpp_5.mat;
+load bkpp_10.mat;
+load bkpp_15.mat;
+load bkpp_30.mat;
 
 % x1 = ['2','5','10','15','30'];
 

@@ -1,8 +1,8 @@
-load bkpp_2.mat;
-load bkpp_5.mat;
-load bkpp_10.mat;
-load bkpp_15.mat;
-load bkpp_30.mat;
+load bkpp_itsay_2.mat;
+load bkpp_itsay_5.mat;
+load bkpp_itsay_10.mat;
+load bkpp_itsay_15.mat;
+load bkpp_itsay_30.mat;
 
 % x1 = ['2','5','10','15','30'];
 

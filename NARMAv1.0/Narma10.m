@@ -5,7 +5,7 @@
 clear
 close all
 
-loop = 10;
+loop = 50;
 train_err_2 = zeros(loop,3);
 test_err_2 = zeros(loop,3);
 
@@ -20,7 +20,7 @@ for i = 1:loop
 sequenceLength = 2000;
 memoryLength = 10;
 nodes = 30;
-theta = 0.02;
+theta = 0.06;
 tau = nodes * theta;
 systemSequence = sequenceLength*nodes;
 config.memoryLength = '{10,5}'; %[0,0.5]
@@ -77,4 +77,4 @@ config.err_type = 'NRMSE';
 
 end
 end
-save 'bkpp_2.mat' test_err_2 train_err_2
+save 'bkpp_itsay_2.mat' test_err_2 train_err_2

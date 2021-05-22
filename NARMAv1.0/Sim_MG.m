@@ -83,6 +83,11 @@ switch(config.connect_type)
         state_matrix(:,1) = [];
         state_matrix = flipud(state_matrix); 
         
+    case '1'
+        state_matrix = [ans.simout]';
+        state_matrix(:,1) = [];
+        state_matrix = flipud(state_matrix); 
+        
     otherwise
         state_matrix = [];
         

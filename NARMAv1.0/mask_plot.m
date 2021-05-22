@@ -1,6 +1,6 @@
-load sh_connect.mat;
-load bm_connect.mat;
-load rm_connect.mat;
+load connect_sh.mat;
+load connect_bm.mat;
+load connect_rm.mat;
 % x1 = ['2','5','10','15','30'];
 
 

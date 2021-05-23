@@ -28,8 +28,8 @@ config.memoryLength = '{10,5}'; %[0,0.5]
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
 % outputSequence = kron(outputSequence, ones(2,1));
 %% Time-multiplexing
-config.masking_type = '1'; % select between '1 = Sample and Hold','2 = Binary Mask','3 = Random Mask'
-% config.masking_type = num2str(t2(j));  
+% config.masking_type = '2'; % select between '1 = Sample and Hold','2 = Binary Mask','3 = Random Mask'
+config.masking_type = num2str(t2(j));  
 [system_inputSequence] = TimeMultiplexing(inputSequence,nodes,sequenceLength,theta,config);
 
 %% Run Mackey-Glass in Simulink
@@ -38,11 +38,11 @@ TFinal = theta * sequenceLength * nodes;
 coupling = 2;
 decay_rate = 1;
 
-sample_time = tau/30;  % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=tau/15 !!
+sample_time = tau;  % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=tau/15 !!
 n = 9.65; % Nonlinearity
 
 % config.connect_type = num2str(t1(j)); % Connectivity: '30','15','10','5','2'
-config.connect_type = '1';
+config.connect_type = '30';
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,config);
 
 %% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout =  pinv(A) * B

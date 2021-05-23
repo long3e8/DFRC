@@ -3,19 +3,19 @@ load connect_bm.mat;
 load connect_rm.mat;
 % x1 = ['2','5','10','15','30'];
 
+plot(mean(test_err_sh),'linewidth',1.5);
+hold on;
+plot(mean(test_err_bm),':','linewidth',1.5);
+hold on;
+plot(mean(test_err_rm),'--','linewidth',1.5)
 
-t = tiledlayout(1,3);
-
-xlabel(t,'Connectivity');
-ylabel(t,'NRMSE');
-
-ax1 = nexttile;
-boxplot(test_err_sh,'Notch','on','Labels',{'2','5','10','15','30'});
-title('Sample and Hold');
-ax2 = nexttile;
-boxplot(test_err_bm,'Notch','on','Labels',{'2','5','10','15','30'});
-title('Binary Mask');
-ax3 = nexttile;
-boxplot(test_err_rm,'Notch','on','Labels',{'2','5','10','15','30'});
-title('Random Mask');
-linkaxes([ax1,ax2,ax3],'y');
+xlim([1 5]);
+ylim([0.3 1]);
+legend('Sample and Hold','Binary Mask','Random Mask');
+grid on;
+ax = gca;
+ax.GridColor = [0 .5 .5];
+ax.GridLineStyle = ':';
+ax.GridAlpha = 0.5;
+xlabel('Connectivity');
+ylabel('NRMSE');

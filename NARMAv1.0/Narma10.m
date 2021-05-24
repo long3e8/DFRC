@@ -5,7 +5,7 @@
 clear
 close all
 
-loop = 1;
+loop = 50;
 train_err_1 = zeros(loop,3);
 test_err_1 = zeros(loop,3);
 
@@ -38,11 +38,11 @@ TFinal = theta * sequenceLength * nodes;
 coupling = 2;
 decay_rate = 1;
 
-sample_time = tau;  % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=tau/15 !!
+sample_time = tau/30;  % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=tau/15 !!
 n = 9.65; % Nonlinearity
 
 % config.connect_type = num2str(t1(j)); % Connectivity: '30','15','10','5','2'
-config.connect_type = '30';
+config.connect_type = '1';
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,config);
 
 %% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout =  pinv(A) * B
@@ -77,4 +77,4 @@ config.err_type = 'NRMSE';
 
 end
 end
-% save 'bkpp_itsay_2.mat' test_err_2 train_err_2
+ save 'bkpp_itsay_1.mat' test_err_1 train_err_1

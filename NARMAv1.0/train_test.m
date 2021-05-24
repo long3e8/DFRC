@@ -1,7 +1,7 @@
 function [output_weights,system_train_output_sequence,target_train_state,system_test_output_sequence,...
     target_test_state] = train_test(state_matrix, outputSequence, systemSequence)
 
-connect = 30;
+connect = 1;
 
 % Split split of data set 60/20 train/test
 system_train_state = state_matrix(:,1:0.6*systemSequence/connect); % A ∈ 

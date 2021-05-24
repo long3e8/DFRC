@@ -1,17 +1,18 @@
 function [output_weights,system_train_output_sequence,target_train_state,system_test_output_sequence,...
-    target_test_state] = train_test(state_matrix, outputSequence, systemSequence)
+    target_test_state] = train_test(state_matrix, outputSequence,connect,nodes)
 
-connect = 30;
+
+ratio = nodes/connect;
 
 % Split split of data set 60/20 train/test
-system_train_state = state_matrix(:,1:0.6*systemSequence/connect); % A ∈ 
-system_test_state = state_matrix(:,0.6*systemSequence/connect +1:systemSequence/connect); % C ∈
+system_train_state = state_matrix(:,1:0.6*length(outputSequence)*ratio); % A ∈ 
+system_test_state = state_matrix(:,0.6*length(outputSequence)*ratio +1:length(outputSequence)*ratio); % C ∈
 
 % Target output matrix
-% target_matrix = outputSequence';
-target_matrix = repmat(outputSequence,1,systemSequence/connect); % concatenation of outputSequence: Bl
-target_train_state = target_matrix(:,1:0.6*systemSequence/connect);
-target_test_state = target_matrix(:,1:0.4*systemSequence/connect);
+target_matrix = reshape(outputSequence,length(outputSequence)/connect,connect);
+target_matrix = repmat(target_matrix,1,length(outputSequence)*ratio/connect); % concatenation of outputSequence: Bl
+target_train_state = target_matrix(:,1:0.6*length(outputSequence)*ratio);
+target_test_state = target_matrix(:,1:0.4*length(outputSequence)*ratio);
 
 % Find best reg parameter
 reg_param = [10e-1 10e-3 10e-5 10e-7 10e-9 10e-11];
@@ -31,7 +32,6 @@ reg_param = [10e-1 10e-3 10e-5 10e-7 10e-9 10e-11];
     
     %remove NaNs
     output_weights(isnan(output_weights)) = 0;
-
     system_test_output_sequence = output_weights * system_test_state;
     
     

@@ -5,9 +5,9 @@
 clear
 close all
 
-loop = 50;
-train_err_1 = zeros(loop,3);
-test_err_1 = zeros(loop,3);
+loop = 1;
+train_err_30 = zeros(loop,3);
+test_err_30 = zeros(loop,3);
 
 rng(1,'twister');
 
@@ -37,12 +37,12 @@ TFinal = theta * sequenceLength * nodes;
 coupling = 2;
 decay_rate = 1;
 
-sample_time = tau/30;  % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=tau/15 !!
+sample_time = tau;  % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=tau/15 ;'1'=tau/30
 n = 9.65; % Nonlinearity
 
 % config.connect_type = num2str(t1(j)); % Connectivity: '30','15','10','5','2'
-connect = 1;
-config.connect_type = '1';
+connect = 30;
+config.connect_type = '30';
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,config);
 
 %% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout =  pinv(A) * B
@@ -56,8 +56,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err_1(i,j) = train_error;
-    test_err_1(i,j) = test_error;
+    train_err_30(i,j) = train_error;
+    test_err_30(i,j) = test_error;
 % %% Demultiplexing
 % 
 % config.plot_type = 'test set';
@@ -77,4 +77,4 @@ config.err_type = 'NRMSE';
 
 end
 end
- save 'bkpp_itsay_1.mat' test_err_1 train_err_1
+%  save 'bkpp_itsay_1.mat' test_err_1 train_err_1

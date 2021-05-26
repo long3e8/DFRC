@@ -5,11 +5,11 @@
 clear
 close all
 
-loop = 1;
+loop = 5;
 train_err_30 = zeros(loop,3);
 test_err_30 = zeros(loop,3);
 
-rng(1,'twister');
+rng(2,'twister');
 
 % t1 = [2,5,10,15,30];
 t2 = [1,2,3]; % Masking --- See TimeMultiplexing.m
@@ -17,6 +17,7 @@ for j = 1:3
 
 for i = 1:loop
 %% Setup
+% rng(1,'twister');
 sequenceLength = 3000;
 memoryLength = 10;
 nodes = 30;
@@ -40,18 +41,18 @@ decay_rate = 1;
 n = 9.65; % Nonlinearity
 
 % config.connect_type = num2str(t1(j)); % Connectivity: '30','15','10','5','2'
-connect_nodes = 2;
+connect_nodes =15;
 ratio = nodes/connect_nodes;
-config.connect_type = '2';
+config.connect_type = '15';
 sample_time = tau/ratio; % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=tau/15 ;'1'=tau/30
-[state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,config);
+[state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,connect_nodes,ratio,config);
 
 %% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout =  B * pinv(A)
 % [output_weights,system_train_output_sequence,target_train_state,system_test_output_sequence,...
 %     target_test_state,target_matrix] = train_test(state_matrix, outputSequence,connect_nodes,ratio);
 
 [output_weights,system_train_output_sequence,target_train_state,system_test_output_sequence,...
-    target_test_state,target_matrix] = train_test_try(state_matrix,outputSequence,ratio,connect_nodes);
+    target_test_state,target_matrix] = train_test_try(state_matrix,outputSequence);
 
 %% Evaluation
 

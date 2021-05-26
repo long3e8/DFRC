@@ -1,17 +1,17 @@
 function [output_weights,system_train_output_sequence,target_train_state,system_test_output_sequence,...
-    target_test_state,target_matrix] = train_test_try(state_matrix, outputSequence,ratio,connect_nodes)
+    target_test_state,target_matrix] = train_test_try(state_matrix, outputSequence)
 
 
 % Split split of data set 60/20 train/test
-system_train_state = state_matrix(:,1:0.6*length(outputSequence)*ratio); % A ∈ 
-system_test_state = state_matrix(:,0.6*length(outputSequence)*ratio +1:length(outputSequence)*ratio); % C ∈
+system_train_state = state_matrix(:,1:0.6*length(outputSequence)); % A ∈ 
+system_test_state = state_matrix(:,0.6*length(outputSequence) +1:length(outputSequence)); % C ∈
 
 %% Target output matrix
 
 % if Wout = [M x Ni]: bm '30'~0.2709 ; '15'~0.5554 ; '10'~0.7256 ---matrix
 % does make sense, but not the result?
-% target = [M x k]
-% target_matrix = repmat(outputSequence,1,length(outputSequence)*ratio);
+% target_matrix = [M x k]
+target_matrix = repmat(outputSequence,1,length(outputSequence));
 
 % ------------------------------------------------------------------------
 
@@ -47,13 +47,13 @@ system_test_state = state_matrix(:,0.6*length(outputSequence)*ratio +1:length(ou
 
 % if Wout = [M/Ni x Ni] total no. of weights would be constant.
 % '30'~0.3075 ; '15'~0.3273 ; '10'~0.3543 ; '5'~0.3787 ; '2'~0.3565
-target_matrix = reshape(outputSequence,[],connect_nodes);
-target_matrix = repmat(target_matrix,1,length(outputSequence)*ratio/connect_nodes); 
+% target_matrix = reshape(outputSequence,[],connect_nodes);
+% target_matrix = repmat(target_matrix,1,length(outputSequence)*ratio/connect_nodes); 
 
 
 % Split into train and test data set
-target_train_state = target_matrix(:,1:0.6*length(outputSequence)*ratio);
-target_test_state = target_matrix(:,1:0.4*length(outputSequence)*ratio);
+target_train_state = target_matrix(:,1:0.6*length(outputSequence));
+target_test_state = target_matrix(:,1:0.4*length(outputSequence));
 
 % Find best reg parameter
 reg_param = [10e-1 10e-3 10e-5 10e-7 10e-9 10e-11];

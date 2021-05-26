@@ -1,4 +1,4 @@
-function [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,config)
+function [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,connect_nodes,ratio,config)
 
 TFinal = TFinal;
 coupling = coupling;
@@ -19,6 +19,7 @@ switch(config.connect_type)
                         ans.simout20,ans.simout21,ans.simout22,ans.simout23,ans.simout24,...
                         ans.simout25,ans.simout26,ans.simout27,ans.simout28,ans.simout29]';
         state_matrix(:,1) = [];
+        state_matrix = reshape (state_matrix,connect_nodes*ratio,[]);
 
 %     case '15'
 %         state_matrix = [ans.simout,ans.simout2,ans.simout4,ans.simout6,ans.simout8,ans.simout10,...
@@ -35,7 +36,7 @@ switch(config.connect_type)
                         ans.simout5,ans.simout6,ans.simout7,ans.simout8,ans.simout9,...
                         ans.simout10,ans.simout11,ans.simout12,ans.simout13,ans.simout14]';
         state_matrix(:,1) = [];
-
+        state_matrix = reshape (state_matrix,connect_nodes*ratio,[]);
 %     case '10'
 %         state_matrix = [ans.simout,ans.simout3,ans.simout6,ans.simout9,ans.simout12,ans.simout15,ans.simout18,...
 %                         ans.simout21,ans.simout24,ans.simout27 ; ans.simout1,ans.simout4,ans.simout7,ans.simout10,...
@@ -49,7 +50,7 @@ switch(config.connect_type)
         state_matrix = [ans.simout,ans.simout1,ans.simout2,ans.simout3,ans.simout4,...
                         ans.simout5,ans.simout6,ans.simout7,ans.simout8,ans.simout9]';
         state_matrix(:,1) = [];
-
+        state_matrix = reshape (state_matrix,connect_nodes*ratio,[]);
 
 
 %     case '5'
@@ -64,7 +65,7 @@ switch(config.connect_type)
      case '5'
         state_matrix = [ans.simout,ans.simout1,ans.simout2,ans.simout3,ans.simout4]';
         state_matrix(:,1) = [];
-
+        state_matrix = reshape (state_matrix,connect_nodes*ratio,[]);
         
 %     case '2'
 %         
@@ -80,11 +81,12 @@ switch(config.connect_type)
         
         state_matrix = [ans.simout,ans.simout1]';
         state_matrix(:,1) = [];
-
+        state_matrix = reshape (state_matrix,connect_nodes*ratio,[]);
         
     case '1'
         state_matrix = [ans.simout]';
         state_matrix(:,1) = [];
+        state_matrix = reshape (state_matrix,connect_nodes*ratio,[]);
         
     otherwise
         state_matrix = [];

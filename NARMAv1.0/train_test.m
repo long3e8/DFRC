@@ -1,16 +1,16 @@
 function [output_weights,system_train_output_sequence,target_train_state,system_test_output_sequence,...
-    target_test_state] = train_test(state_matrix, outputSequence,connect,nodes)
+    target_test_state,target_matrix] = train_test(state_matrix, outputSequence,connect_nodes,ratio)
 
-
-ratio = nodes/connect;
 
 % Split split of data set 60/20 train/test
 system_train_state = state_matrix(:,1:0.6*length(outputSequence)*ratio); % A ∈ 
 system_test_state = state_matrix(:,0.6*length(outputSequence)*ratio +1:length(outputSequence)*ratio); % C ∈
 
 % Target output matrix
-target_matrix = reshape(outputSequence,length(outputSequence)/connect,connect);
-target_matrix = repmat(target_matrix,1,length(outputSequence)*ratio/connect); % concatenation of outputSequence: Bl
+target_matrix = reshape(outputSequence,[],connect_nodes);
+target_matrix = repmat(target_matrix,1,length(outputSequence)*ratio/connect_nodes); % concatenation of outputSequence: Bl
+% target_matrix = repmat(target_matrix,connect_nodes,1); % make the Wout = 3000 * Ni
+
 target_train_state = target_matrix(:,1:0.6*length(outputSequence)*ratio);
 target_test_state = target_matrix(:,1:0.4*length(outputSequence)*ratio);
 

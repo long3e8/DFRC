@@ -22,33 +22,36 @@ memoryLength = 10;
 nodes = 30;
 theta = 0.06;
 tau = nodes * theta;
+
 config.memoryLength = '{10,5}'; %[0,0.5]
 
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
-% outputSequence = kron(outputSequence, ones(2,1));
+
 %% Time-multiplexing
 % config.masking_type = '2'; % select between '1 = Sample and Hold','2 = Binary Mask','3 = Random Mask'
-config.masking_type = num2str(t2(j));  
-[system_inputSequence] = TimeMultiplexing(inputSequence,nodes,sequenceLength,theta,config);
+config.masking_type = num2str(t2(j));
+[system_inputSequence] = TimeMultiplexing(inputSequence,sequenceLength,theta,nodes,config);
 
 %% Run Mackey-Glass in Simulink
 
 TFinal = theta * sequenceLength * nodes;
 coupling = 2;
 decay_rate = 1;
-
-sample_time = tau;  % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=tau/15 ;'1'=tau/30
 n = 9.65; % Nonlinearity
 
 % config.connect_type = num2str(t1(j)); % Connectivity: '30','15','10','5','2'
-connect = 30;
+connect_nodes = 30;
+ratio = nodes/connect_nodes;
 config.connect_type = '30';
+sample_time = tau/ratio; % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=tau/15 ;'1'=tau/30
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,config);
 
-%% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout =  pinv(A) * B
-
+%% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout =  B * pinv(A)
 [output_weights,system_train_output_sequence,target_train_state,system_test_output_sequence,...
-    target_test_state] = train_test(state_matrix, outputSequence, connect, nodes);
+    target_test_state,target_matrix] = train_test(state_matrix, outputSequence,connect_nodes,ratio);
+
+% [output_weights,system_train_output_sequence,target_train_state,system_test_output_sequence,...
+%     target_test_state,target_matrix] = train_test_try(state_matrix,outputSequence,ratio);
 
 %% Evaluation
 

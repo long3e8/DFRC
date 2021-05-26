@@ -36,8 +36,6 @@ switch(config.connect_type)
                         ans.simout10,ans.simout11,ans.simout12,ans.simout13,ans.simout14]';
         state_matrix(:,1) = [];
 
-        
-        
 %     case '10'
 %         state_matrix = [ans.simout,ans.simout3,ans.simout6,ans.simout9,ans.simout12,ans.simout15,ans.simout18,...
 %                         ans.simout21,ans.simout24,ans.simout27 ; ans.simout1,ans.simout4,ans.simout7,ans.simout10,...

@@ -6,10 +6,10 @@ clear
 close all
 
 loop = 50;
-train_err_2 = zeros(loop,3);
-test_err_2 = zeros(loop,3);
+train_err_1 = zeros(loop,3);
+test_err_1 = zeros(loop,3);
 
-% rng(1,'twister');
+rng(1,'twister');
 
 % t1 = [2,5,10,15,30];
 t2 = [1,2,3]; % Masking --- See TimeMultiplexing.m
@@ -17,7 +17,6 @@ for j = 1:3
 
 for i = 1:loop
 %% Setup
-% rng(1,'twister');
 sequenceLength = 3000;
 memoryLength = 10;
 nodes = 30;
@@ -29,7 +28,7 @@ config.memoryLength = '{10,5}'; %[0,0.5]
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
 
 %% Time-multiplexing
-% config.masking_type = '2'; % select between '1 = Sample and Hold','2 = Binary Mask','3 = Random Mask'
+% config.masking_type = '3'; % select between '1 = Sample and Hold','2 = Binary Mask','3 = Random Mask'
 config.masking_type = num2str(t2(j));
 [system_inputSequence] = TimeMultiplexing(inputSequence,sequenceLength,theta,nodes,config);
 
@@ -41,9 +40,9 @@ decay_rate = 1;
 n = 9.65; % Nonlinearity
 
 % config.connect_type = num2str(t1(j)); % Connectivity: '30','15','10','5','2'
-connect_nodes =2;
+connect_nodes = 1;
 ratio = nodes/connect_nodes;
-config.connect_type = '2';
+config.connect_type = '1';
 sample_time = tau/ratio; % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=tau/15 ;'1'=tau/30
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,connect_nodes,ratio,config);
 
@@ -60,8 +59,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err_2(i,j) = train_error;
-    test_err_2(i,j) = test_error;
+    train_err_1(i,j) = train_error;
+    test_err_1(i,j) = test_error;
 % %% Demultiplexing
 % 
 % config.plot_type = 'test set';
@@ -81,4 +80,4 @@ config.err_type = 'NRMSE';
 
 end
 end
- save 'bkpp_itsay_2.mat' test_err_2 train_err_2
+ save 'bkpp_itsay_1.mat' test_err_1 train_err_1

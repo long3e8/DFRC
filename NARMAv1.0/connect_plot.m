@@ -15,6 +15,8 @@ ylabel(t,'NRMSE');
 
 ax1 = nexttile;
 boxplot(test_err_30,'Notch','on','Labels',{'SH','BM','RM'});
+hold on;
+boxplot(train_err_30,'Notch','on');
 xtickangle(ax1,45);
 ylim([0.22 0.65]);
 title('N = 30','FontSize', 11);

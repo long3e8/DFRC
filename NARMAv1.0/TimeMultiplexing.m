@@ -1,16 +1,15 @@
-function [system_inputSequence] = TimeMultiplexing(inputSequence,sequenceLength,theta,nodes,config)
-    
+function [masking,system_inputSequence] = TimeMultiplexing(inputSequence,sequenceLength,theta,nodes,config)
+
     start_time = 0; % Starting time --- in order to make T = TFinal
     N = sequenceLength * nodes; % Number of values
     timeline = start_time + theta*(0:N-1); % Generate time in matrix
 
-%   rng(1,'twister');
-    
+
 switch(config.masking_type)
    
     case '1' % Sample and Hold
-        AinputSequence = repelem (inputSequence,nodes);
-        system_inputSequence = [timeline(:),AinputSequence(:)];
+        masking = repelem (inputSequence,nodes);
+        system_inputSequence = [timeline(:),masking(:)];
     
         
     case '2' % Binary Masking
@@ -19,20 +18,21 @@ switch(config.masking_type)
         r = randi([-1 1],nodes,1);
         masking = repmat(r,sequenceLength,1);
 
-        inputSequence = masking .* inputSequence + inputSequence;
+        masking = masking .* inputSequence + inputSequence;
 
-        system_inputSequence = [timeline(:),inputSequence];
+        system_inputSequence = [timeline(:),masking];
 
     case '3' % Random Masking
         
         inputSequence = repelem (inputSequence,nodes);
         r = -1 + (1+1)*rand(nodes,1);
         masking = repmat(r,sequenceLength,1);
-        BinputSequence = masking .* inputSequence + inputSequence;
+        masking = masking .* inputSequence + inputSequence;
 
-        system_inputSequence = [timeline(:),BinputSequence];
+        system_inputSequence = [timeline(:),masking];
         
         otherwise
         
         system_inputSequence = [];
+
 end

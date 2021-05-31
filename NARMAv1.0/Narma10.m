@@ -6,8 +6,8 @@ clear
 close all
 
 loop = 20; % Runs
-train_err_30 = zeros(loop,3);
-test_err_30 = zeros(loop,3); % (loop, 3 for mask / 5 for sampling)
+train_err_sh = zeros(loop,5);
+test_err_sh = zeros(loop,5); % (loop, 3 for mask / 5 for sampling)
 
 rng(1,'twister'); 
 
@@ -15,7 +15,7 @@ sampling = [2,5,10,15,30];
 mask = [1,2,3]; % Masking --- See TimeMultiplexing.m
 for i = 1:loop
 % rng(1,'twister'); % For same input data (every loop), different mask
-for j = 1:3
+for j = 1:5
 %% Setup
 sequenceLength = 3000;
 memoryLength = 10;
@@ -28,8 +28,8 @@ config.memoryLength = '{10,5}'; %[0,0.5]
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
 
 %% Time-multiplexing
-% config.masking_type = '3'; % select between '1 = Sample and Hold','2 = Binary Mask','3 = Random Mask'
-config.masking_type = num2str(mask(j));
+config.masking_type = '1'; % select between '1 = Sample and Hold','2 = Binary Mask','3 = Random Mask'
+% config.masking_type = num2str(mask(j));
 [masking,system_inputSequence] = TimeMultiplexing(inputSequence,sequenceLength,theta,nodes,config);
 
 %% Run Mackey-Glass in Simulink
@@ -60,8 +60,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err_30(i,j) = train_error;
-    test_err_30(i,j) = test_error;
+    train_err_sh(i,j) = train_error;
+    test_err_sh(i,j) = test_error;
 % %% Demultiplexing
 % 
 % config.plot_type = 'test set';
@@ -81,4 +81,4 @@ config.err_type = 'NRMSE';
 
 end
 end
- save 'bkpp_itsay_30.mat' test_err_30 train_err_30
+ save 'bkpp_itsay_bm.mat' test_err_bm train_err_bm

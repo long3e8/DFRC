@@ -10,7 +10,6 @@ switch(config.masking_type)
     case '1' % Sample and Hold
         masking = repelem (inputSequence,nodes);
         system_inputSequence = [timeline(:),masking(:)];
-    
         
     case '2' % Binary Masking
         

@@ -9,7 +9,7 @@ loop = 30; % Runs
 train_err_ipytm2 = zeros(loop,3);
 test_err_ipytm2 = zeros(loop,3); % (loop, 3 for mask / 5 for sampling)
 
-rng(1,'twister'); 
+% rng(1,'twister'); 
 
 % sampling = [2,5,10,15,30];
 mask = [1,2,3]; % Masking --- See TimeMultiplexing.m

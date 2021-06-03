@@ -1,4 +1,4 @@
-load bkpp_ipytm_dism.mat;
+load dism.mat;
 load sidm.mat;
 load didm.mat;
 

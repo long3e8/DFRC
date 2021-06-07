@@ -19,14 +19,14 @@ boxplot(BM,'Color',[0, 0.15, 0.7410],'Notch','on','Labels',{'SIDM','DISM','DIDM'
 % xtickangle(ax2,45);
 ylim([0.23 0.66]);
 grid on;
-title('Binary Mask','FontSize', 9);
+title('Binary Weight Mask','FontSize', 9);
 
 ax3 = nexttile;
 boxplot(RM,'Color',[0, 0.15, 0.7410],'Notch','on','Labels',{'SIDM','DISM','DIDM'});
 % xtickangle(ax3,45);
 ylim([0.23 0.66]);
 grid on;
-title('Random Mask','FontSize', 9);
+title('Real Weight Mask','FontSize', 9);
 
 lines = findobj(gcf, 'type', 'line', 'Tag', 'Median');
 set(lines, 'Color', [0.8500 0.3250 0.0980]);

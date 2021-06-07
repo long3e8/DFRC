@@ -43,7 +43,7 @@ switch(config.err_type)
         err = (sum(diag(-desired_output'*log(system_output))-diag((1-desired_output')*log(1-system_output)))/size(desired_output,1));
     
     case 'NRMSE'
-        err= sqrt((sum((desired_output-system_output).^2)/(var(desired_output)))*(1/length(desired_output)));
+        err= sqrt((sum((system_output-desired_output).^2)/(var(desired_output)))*(1/length(desired_output)));
         %err = compute_NRMSE(systemOutput,desiredOutput);
         %err = goodnessOfFit(systemOutput,desiredOutput,type);
         

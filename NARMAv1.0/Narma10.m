@@ -5,7 +5,7 @@
 clear
 close all
 
-loop = 2; % Runs
+loop = 1; % Runs
 train_err_dism = zeros(loop,1);
 test_err_dism = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 
@@ -28,7 +28,7 @@ config.memoryLength = '{10,5}'; %[0,0.5]
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
 
 %% Time-multiplexing
-config.masking_type = '1'; % select between '1 = Sample and Hold','2 = Binary Mask','3 = Random Mask'
+config.masking_type = '3'; % select between '1 = Sample and Hold','2 = Binary Mask','3 = Random Mask'
 % config.masking_type = num2str(mask(j));
 [masking] = TimeMultiplexing(inputSequence,sequenceLength,nodes,config);
 start_time = 0; % Starting time --- in order to make T = TFinal

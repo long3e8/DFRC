@@ -5,16 +5,17 @@
 clear
 close all
 
-loop = 1; % Runs
+loop = 30; % Runs
 train_err_dism = zeros(loop,1);
 test_err_dism = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 
-rng(1,'twister'); 
+% rng(1,'twister'); 
 
 % sampling = [2,5,10,15,30];
-% mask = [1,2,3]; % Masking --- See TimeMultiplexing.m
+% mask = [1,2,3]; % masking --- See TimeMultiplexing.m
 for i = 1:loop
     
+% rng(1,'twister'); 
 % for j = 1:3
 %% Setup
 sequenceLength = 3000;
@@ -84,4 +85,4 @@ config.err_type = 'NRMSE';
 
 end
 % end
-%  save 'bkpp_ipytm_dism.mat' test_err_dism train_err_dism
+%  save 'bkpp_itsay_sidm.mat' test_err_sidm train_err_sidm

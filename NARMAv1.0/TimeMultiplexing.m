@@ -3,6 +3,8 @@ function [masking] = TimeMultiplexing(inputSequence,sequenceLength,nodes,config)
 switch(config.masking_type)
    
     case '1' % Sample and Hold
+%         rng(1,'twister'); 
+
         masking = repelem (inputSequence,nodes);
         
         
@@ -19,8 +21,8 @@ switch(config.masking_type)
         AinputSequence = repelem (inputSequence,nodes);
         r = -1 + (1+1)*rand(nodes,1);
         Amasking = repmat(r,sequenceLength,1);
-        masking = Amasking .* AinputSequence + AinputSequence;
-%         masking = Amasking .* AinputSequence; % M * u
+%         masking = Amasking .* AinputSequence + AinputSequence;
+        masking = Amasking .* AinputSequence; % M * u
         
         otherwise
         

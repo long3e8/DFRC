@@ -1,6 +1,6 @@
-load SH.mat;
-load BM.mat;
-load RM.mat;
+load offset_SH.mat;
+load offset_BM.mat;
+load offset_RM.mat;
 
 
 t = tiledlayout(1,3);

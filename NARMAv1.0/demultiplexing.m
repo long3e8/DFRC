@@ -1,5 +1,5 @@
 function [target_plot,system_plot] = demultiplexing(system_train_output_sequence,target_train_state,...
-    system_test_output_sequence,target_test_state,config);
+    system_test_output_sequence,target_test_state,config)
 
 switch(config.plot_type)
 

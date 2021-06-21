@@ -56,7 +56,7 @@ sample_time = tau/ratio; % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=
 %     target_test_state,target_matrix] = train_test(state_matrix, outputSequence,connect_nodes,ratio);
 
 [output_weights,system_train_output_sequence,target_train_state,system_test_output_sequence,...
-    target_test_state,target_matrix] = train_test_try(state_matrix,outputSequence);
+    target_test_state,target_matrix] = train_test(state_matrix,outputSequence);
 
 %% Evaluation
 

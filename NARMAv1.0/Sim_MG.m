@@ -6,7 +6,7 @@ decay_rate = decay_rate;
 tau = tau;
 n = n;
 
-sim('MackeyGlass.slx');
+sim('MG_Damping.slx');
 
 switch(config.connect_type)
     

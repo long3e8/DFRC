@@ -7,17 +7,17 @@ switch(config.masking_type)
         masking = repelem (inputSequence,nodes);
         
         
-    case '2' % Binary Masking
+    case '2' % Binary Weight Masking
         
         AinputSequence = repelem (inputSequence,nodes);
         r = 2* randi(2,nodes,1)-1 -2;
         Amasking = repmat(r,sequenceLength,1);
         % Offset
-        masking = Amasking .* AinputSequence + AinputSequence;
+%         masking = Amasking .* AinputSequence + AinputSequence;
         % No-Offset
-%         masking = Amasking .* AinputSequence; 
+        masking = Amasking .* AinputSequence; 
 
-    case '3' % Random Masking
+    case '3' % Random Weight Masking
         
         AinputSequence = repelem (inputSequence,nodes);
         r = -1 + (1+1)*rand(nodes,1);

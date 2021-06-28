@@ -20,7 +20,7 @@ for i = 1:loop
 %% Setup
 sequenceLength = 3000;
 memoryLength = 10;
-nodes = 30;
+nodes = 1;
 theta = 0.06;
 tau = nodes * theta;
 

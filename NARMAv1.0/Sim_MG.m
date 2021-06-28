@@ -6,7 +6,10 @@ decay_rate = decay_rate;
 tau = tau;
 n = n;
 
-sim('MG_Damping.slx');
+% sim('MG_Damping.slx'); % Delay line with damping
+% sim('MackeyGlass.slx'); 
+sim('MG1.slx'); % 1 virtual node
+
 
 switch(config.connect_type)
     

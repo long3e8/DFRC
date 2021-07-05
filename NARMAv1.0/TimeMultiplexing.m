@@ -6,7 +6,6 @@ switch(config.masking_type)
 
         masking = repelem (inputSequence,nodes);
         
-        
     case '2' % Binary Weight Masking
         
         AinputSequence = repelem (inputSequence,nodes);

@@ -5,7 +5,7 @@
 clear
 close all
 
-loop = 10; % Runs
+loop = 1; % Runs
 train_err_o1 = zeros(loop,1);
 test_err_o1 = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 
@@ -15,7 +15,7 @@ rng(1,'twister');
 mask = [1,2,3]; % masking --- See TimeMultiplexing.m
 for i = 1:loop
     
-for j = 1:3
+% for j = 1:3
 %% Setup
 sequenceLength = 3000;
 memoryLength = 10;
@@ -28,8 +28,8 @@ config.memoryLength = '{10,5}'; %[0,0.5]
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
 
 %% Time-multiplexing
-% config.masking_type = '1'; % select between '1 = Sample and Hold','2 = Binary Weight Mask','3 = Random Weight Mask'
-config.masking_type = num2str(mask(j));
+config.masking_type = '1'; % select between '1 = Sample and Hold','2 = Binary Weight Mask','3 = Random Weight Mask'
+% config.masking_type = num2str(mask(j));
 [masking] = TimeMultiplexing(inputSequence,sequenceLength,nodes,config);
 start_time = 0; % Starting time --- in order to make T = TFinal
 N = sequenceLength * nodes; % Number of values
@@ -62,8 +62,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err_o1(i,j) = train_error;
-    test_err_o1(i,j) = test_error;
+    train_err_o1(i,1) = train_error;
+    test_err_o1(i,1) = test_error;
 
 % %% Demultiplexing
 % 
@@ -83,5 +83,5 @@ config.err_type = 'NRMSE';
 
 
 end
-end
-save '1_offset' test_err_o1 train_err_o1
+% end
+% save '1_offset' test_err_o1 train_err_o1

@@ -29,7 +29,7 @@ boxplot(test_err_o5,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'
 % boxplot(train_err_15,'Color',[0, 0.4470, 0.7410],'Notch','on','Labels',{'SH','BM','RM'});
 % xtickangle(ax2,45);
 ylim([0.08 0.65]);
-title('N_i = 1','FontSize', 11);
+title('N_i = 5','FontSize', 11);
 grid on;
 
 ax3 = nexttile;
@@ -47,7 +47,7 @@ boxplot(test_err_o1,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'
 % boxplot(train_err_5,'Color',[0, 0.4470, 0.7410],'Notch','on','Labels',{'SH','BM','RM'});
 % xtickangle(ax4,45);
 ylim([0.08 0.65]);
-title('N_i = 5','FontSize', 11);
+title('N_i = 1','FontSize', 11);
 grid on;
 
 % ax5 = nexttile;

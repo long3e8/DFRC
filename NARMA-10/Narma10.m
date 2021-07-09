@@ -5,7 +5,7 @@
 clear
 close all
 
-loop = 1; % Runs
+loop = 3; % Runs
 train_err = zeros(loop,1);
 test_err = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 

@@ -12,9 +12,9 @@ switch(config.masking_type)
         r = 2* randi(2,nodes,1)-1 -2;
         Amasking = repmat(r,sequenceLength,1);
         % Offset
-        masking = Amasking .* AinputSequence + AinputSequence;
+%         masking = Amasking .* AinputSequence + AinputSequence;
 %         No-Offset
-%         masking = Amasking .* AinputSequence; 
+        masking = Amasking .* AinputSequence; 
 
     case '3' % Random Weight Masking
         
@@ -22,9 +22,9 @@ switch(config.masking_type)
         r = -1 + (1+1)*rand(nodes,1);
         Amasking = repmat(r,sequenceLength,1);
         % Offset
-        masking = Amasking .* AinputSequence + AinputSequence;
+%         masking = Amasking .* AinputSequence + AinputSequence;
         % No-Offset
-%         masking = Amasking .* AinputSequence; % M * u
+        masking = Amasking .* AinputSequence; % M * u
         
         otherwise
         

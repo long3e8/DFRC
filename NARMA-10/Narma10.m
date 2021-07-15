@@ -49,7 +49,7 @@ connect_nodes = 30;
 ratio = nodes/connect_nodes;
 config.connect_type = '30';
 % config.connect_type = num2str(sampling(j)); % Connectivity: '30','15','10','5','2'
-sample_time = tau/ratio; % '30'=tau ; '15'=tau/2 ; '10'=tau/3 ; '5'=tau/6 ; '2'=tau/15 ;'1'=tau/30
+sample_time = tau/ratio;
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,connect_nodes,ratio,config);
 
 %% Training --- ridge regression Wout = BA'(AA'-λI)^-1 / pseudo-inverse Wout =  B * pinv(A)

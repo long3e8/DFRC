@@ -5,9 +5,9 @@
 clear
 close all
 
-loop = 1; % Runs
-train_err = zeros(loop,1);
-test_err = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
+loop = 30; % Runs
+train_err_10ll = zeros(loop,1);
+test_err_10ll = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 
 rng(1,'twister'); 
 
@@ -45,9 +45,9 @@ decay_rate = 1;
 n = 9.65; % Nonlinearity
 
 % connect_nodes = sampling(j);  %-- For vary sampling
-connect_nodes = 30;
+connect_nodes = 10;
 ratio = nodes/connect_nodes;
-config.connect_type = '30';
+config.connect_type = '10';
 % config.connect_type = num2str(sampling(j)); % Connectivity: '30','15','10','5','2'
 sample_time = tau/ratio;
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,connect_nodes,ratio,config);
@@ -63,8 +63,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err(i,j) = train_error;
-    test_err(i,j) = test_error;
+    train_err_10ll(i,j) = train_error;
+    test_err_10ll(i,j) = test_error;
 
 % %% Demultiplexing
 % 
@@ -82,7 +82,8 @@ config.err_type = 'NRMSE';
 % ylabel('x(t)')
 % legend('target output','system output')
 
+
+end
 toc
 end
-end
-% save 'offset_ll1' test_err_ll1 train_err_ll1
+% save '15ll' test_err_15ll train_err_15ll

@@ -86,4 +86,4 @@ config.err_type = 'NRMSE';
 end
 toc
 end
-save 'tap_resistor30' test_err_tr30 train_err_tr30
+% save 'tap_resistor30' test_err_tr30 train_err_tr30

@@ -5,9 +5,9 @@
 clear
 close all
 
-loop = 30; % Runs
-train_err_1ll = zeros(loop,1);
-test_err_1ll = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
+loop = 1; % Runs
+train_err_tr30 = zeros(loop,1);
+test_err_tr30 = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 
 rng(1,'twister'); 
 
@@ -63,8 +63,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err_1ll(i,j) = train_error;
-    test_err_1ll(i,j) = test_error;
+    train_err_tr30(i,j) = train_error;
+    test_err_tr30(i,j) = test_error;
 
 % %% Demultiplexing
 % 
@@ -86,4 +86,4 @@ config.err_type = 'NRMSE';
 end
 toc
 end
-% save 'll1' test_err_1ll train_err_1ll
+save 'tap_resistor30' test_err_tr30 train_err_tr30

@@ -7,9 +7,9 @@ tau = tau;
 n = n;
 
 % sim('MG_Damping_18a.slx'); % Delay line with damping
-% sim('MG_lossless.slx'); % Lossless transmission line
+sim('MG_lossless.slx'); % Lossless transmission line
 % sim('MackeyGlass.slx'); % ideal delay line
-sim('TapDL_resistor.slx'); % ideal tapped delay line with resistors
+% sim('TapDL_resistor.slx'); % ideal tapped delay line with resistors
 
 
 switch(config.connect_type)

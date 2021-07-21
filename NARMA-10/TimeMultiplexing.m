@@ -26,7 +26,7 @@ switch(config.masking_type)
         % No-Offset
 %         masking = Amasking .* AinputSequence; % M * u
         
-        otherwise
+    otherwise
         
         masking = [];
 

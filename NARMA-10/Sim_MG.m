@@ -6,9 +6,9 @@ decay_rate = decay_rate;
 tau = tau;
 n = n;
 
-sim('MG_Damping_18a.slx'); % Delay line with damping
+% sim('MG_Damping_18a.slx'); % Delay line with damping
 % sim('MG_lossless.slx'); % Lossless transmission line
-% sim('MackeyGlass.slx'); % ideal delay line
+sim('MackeyGlass.slx'); % ideal delay line
 % sim('TapDL_resistor.slx'); % ideal tapped delay line with resistors
 
 

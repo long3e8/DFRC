@@ -5,7 +5,7 @@
 clear
 close all
 
-loop = 30; % Runs
+loop = 1; % Runs
 train_err_dp30 = zeros(loop,1);
 test_err_dp30 = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 
@@ -87,4 +87,4 @@ config.err_type = 'NRMSE';
 end
 toc
 end
-save 'dp30' test_err_dp30 train_err_dp30
+% save 'dp30' test_err_dp30 train_err_dp30

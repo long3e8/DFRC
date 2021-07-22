@@ -6,8 +6,8 @@ clear
 close all
 
 loop = 30; % Runs
-train_err_no15 = zeros(loop,1);
-test_err_no15 = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
+train_err_no1 = zeros(loop,1);
+test_err_no1 = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 
 rng(1,'twister'); 
 
@@ -46,9 +46,9 @@ n = 9.65; % Nonlinearity
 resis_per_unit = 10;
 
 % connect_nodes = sampling(j);  %-- For vary sampling
-connect_nodes = 15;
+connect_nodes = 1;
 ratio = nodes/connect_nodes;
-config.connect_type = '15';
+config.connect_type = '1';
 % config.connect_type = num2str(sampling(j)); % Connectivity: '30','15','10','5','2'
 sample_time = tau/ratio;
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,connect_nodes,ratio,config);
@@ -64,8 +64,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err_no15(i,j) = train_error;
-    test_err_no15(i,j) = test_error;
+    train_err_no1(i,j) = train_error;
+    test_err_no1(i,j) = test_error;
 
 % %% Demultiplexing
 % 
@@ -87,4 +87,4 @@ config.err_type = 'NRMSE';
 end
 toc
 end
-save 'damping_no15' test_err_no15 train_err_no15
+save 'damping_no1' test_err_no1 train_err_no1

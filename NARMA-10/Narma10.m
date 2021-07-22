@@ -5,9 +5,9 @@
 clear
 close all
 
-loop = 1; % Runs
-train_err = zeros(loop,1);
-test_err = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
+loop = 30; % Runs
+train_err_no30 = zeros(loop,1);
+test_err_no30 = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 
 rng(1,'twister'); 
 
@@ -64,8 +64,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err(i,j) = train_error;
-    test_err(i,j) = test_error;
+    train_err_no30(i,j) = train_error;
+    test_err_no30(i,j) = test_error;
 
 % %% Demultiplexing
 % 

@@ -1,13 +1,17 @@
-load offset30.mat;
-load offset15.mat;
-load offset5.mat;
-load offset1.mat
+% ideal tapped delay
+% load offset30.mat;
+% load offset15.mat;
+% load offset5.mat;
+% load offset1.mat;
+load offset.mat;
 
+% lossless transmission line
 % load offset_ll30.mat;
 % load offset_ll15.mat;
 % load offset_ll5.mat;
 % load offset_ll1.mat;
 
+% damping transmission line
 % load dp30.mat;
 % load dp15.mat;
 % load dp5.mat;
@@ -24,46 +28,46 @@ ylabel(t,'NRMSE');
 
 
 ax1 = nexttile;
-boxplot(test_err_o30,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
+boxplot(test_err_offset,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % boxplot(test_err_ll30,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % boxplot(test_err_dp30,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % hold on;
 % boxplot(train_err_30,'Color',[0, 0.4470, 0.7410],'Notch','on','Labels',{'SH','BM','RM'});
 % xtickangle(ax1,45);
-ylim([0.25 0.7]);
+ylim([0.15 0.65]);
 title('N_i = 30','FontSize', 11);
 grid on;
 
 ax2 = nexttile;
-boxplot(test_err_o15,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
+boxplot(test_err_offset,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % boxplot(test_err_ll15,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % boxplot(test_err_dp15,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % hold on;
 % boxplot(train_err_15,'Color',[0, 0.4470, 0.7410],'Notch','on','Labels',{'SH','BM','RM'});
 % xtickangle(ax2,45);
-ylim([0.25 0.7]);
+ylim([0.15 0.65]);
 title('N_i = 15','FontSize', 11);
 grid on;
 
 ax3 = nexttile;
-boxplot(test_err_o5,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
+boxplot(test_err_offset,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % boxplot(test_err_ll5,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % boxplot(test_err_dp5,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % hold on;
 % boxplot(train_err_10,'Color',[0, 0.4470, 0.7410],'Notch','on','Labels',{'SH','BM','RM'});
 % xtickangle(ax3,45);
-ylim([0.25 0.7]);
+ylim([0.15 0.65]);
 title('N_i = 5','FontSize', 11);
 grid on;
 
 ax4 = nexttile;
-boxplot(test_err_o1,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
+boxplot(test_err_offset,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % boxplot(test_err_ll1,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % boxplot(test_err_dp1,'Color',[0, 0, 0.65],'Notch','on','Labels',{'SH','BWM','RWM'});
 % hold on;
 % boxplot(train_err_5,'Color',[0, 0.4470, 0.7410],'Notch','on','Labels',{'SH','BM','RM'});
 % xtickangle(ax4,45);
-ylim([0.25 0.7]);
+ylim([0.15 0.65]);
 title('N_i = 1','FontSize', 11);
 grid on;
 

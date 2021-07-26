@@ -5,7 +5,7 @@
 clear
 close all
 
-loop = 1; % Runs
+loop = 30; % Runs
 train_err = zeros(loop,1);
 test_err = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 
@@ -19,12 +19,12 @@ for i = 1:loop
 for j = 1:3
 %% Setup
 sequenceLength = 3000;
-memoryLength = 10;
+memoryLength = 30;
 nodes = 30;
 theta = 0.06;
 tau = nodes * theta;
 
-config.memoryLength = '{10,5}'; %[0,0.5]
+config.memoryLength = '{30,40}'; %[0,0.5]
 
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
 

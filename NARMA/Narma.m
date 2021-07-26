@@ -5,11 +5,11 @@
 clear
 close all
 
-loop = 30; % Runs
-train_err = zeros(loop,1);
-test_err = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
+loop = 3; % Runs
+train_err = zeros(loop,3);
+test_err = zeros(loop,3); % (loop, 3 for mask / 5 for sampling)
 
-rng(1,'twister'); 
+% rng(1,'twister'); 
 
 % sampling = [1,2,5,10]; % 1, 2, 5, 10, 15, 30
 mask = [1,2,3]; % masking --- See TimeMultiplexing.m
@@ -87,4 +87,4 @@ config.err_type = 'NRMSE';
 end
 toc
 end
-% save 'damping_no1' test_err_no1 train_err_no1
+% save 'N30_sidm' test_err_30offset train_err_30offset

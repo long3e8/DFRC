@@ -6,10 +6,10 @@ clear
 close all
 
 loop = 3; % Runs
-train_err = zeros(loop,3);
-test_err = zeros(loop,3); % (loop, 3 for mask / 5 for sampling)
+train_err_30nooffset = zeros(loop,3);
+test_err_30nooffset = zeros(loop,3); % (loop, 3 for mask / 5 for sampling)
 
-% rng(1,'twister'); 
+rng(1,'twister');
 
 % sampling = [1,2,5,10]; % 1, 2, 5, 10, 15, 30
 mask = [1,2,3]; % masking --- See TimeMultiplexing.m
@@ -24,7 +24,7 @@ nodes = 30;
 theta = 0.06;
 tau = nodes * theta;
 
-config.memoryLength = '{30,40}'; %[0,0.5]
+config.memoryLength = '{10,5}'; %[0,0.5]
 
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
 
@@ -64,8 +64,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err(i,j) = train_error;
-    test_err(i,j) = test_error;
+    train_err_30nooffset(i,j) = train_error;
+    test_err_30nooffset(i,j) = test_error;
 
 % %% Demultiplexing
 % 
@@ -87,4 +87,4 @@ config.err_type = 'NRMSE';
 end
 toc
 end
-% save 'N30_sidm' test_err_30offset train_err_30offset
+% save 'N30_dism' test_err_30nooffset train_err_30nooffset

@@ -1,6 +1,10 @@
-load offset_SH.mat;
-load offset_BM.mat;
-load offset_RM.mat;
+% load offset_SH.mat;
+% load offset_BM.mat;
+% load offset_RM.mat;
+
+load offset_SH30.mat;
+load offset_BWM30.mat;
+load offset_RWM30.mat;
 
 
 t = tiledlayout(1,3);
@@ -8,23 +12,26 @@ xlabel(t,'Settings');
 ylabel(t,'NRMSE');
 
 ax1 = nexttile;
-boxplot(SH,'Color',[0, 0.15, 0.7410],'Notch','on','Labels',{'SIDM','DISM','DIDM'});
+% boxplot(SH,'Color',[0, 0.15, 0.7410],'Notch','on','Labels',{'SIDM','DISM','DIDM'});
+boxplot(OffsetSH30,'Color',[0, 0.15, 0.7410],'Notch','on','Labels',{'SIDM','DISM','DIDM'});
 % xtickangle(ax1,45);
-ylim([0.23 0.66]);
+ylim([0.02 0.32]);
 grid on;
 title('Sample & Hold','FontSize', 9);
 
 ax2 = nexttile;
-boxplot(BM,'Color',[0, 0.15, 0.7410],'Notch','on','Labels',{'SIDM','DISM','DIDM'});
+% boxplot(BM,'Color',[0, 0.15, 0.7410],'Notch','on','Labels',{'SIDM','DISM','DIDM'});
+boxplot(OffsetBWM30,'Color',[0, 0.15, 0.7410],'Notch','on','Labels',{'SIDM','DISM','DIDM'});
 % xtickangle(ax2,45);
-ylim([0.23 0.66]);
+ylim([0.02 0.32]);
 grid on;
 title('Binary Weight Mask','FontSize', 9);
 
 ax3 = nexttile;
-boxplot(RM,'Color',[0, 0.15, 0.7410],'Notch','on','Labels',{'SIDM','DISM','DIDM'});
+% boxplot(RM,'Color',[0, 0.15, 0.7410],'Notch','on','Labels',{'SIDM','DISM','DIDM'});
+boxplot(OffsetRWM30,'Color',[0, 0.15, 0.7410],'Notch','on','Labels',{'SIDM','DISM','DIDM'});
 % xtickangle(ax3,45);
-ylim([0.23 0.66]);
+ylim([0.02 0.32]);
 grid on;
 title('Real Weight Mask','FontSize', 9);
 

@@ -5,9 +5,9 @@
 clear
 close all
 
-loop = 3; % Runs
-train_err_30nooffset = zeros(loop,3);
-test_err_30nooffset = zeros(loop,3); % (loop, 3 for mask / 5 for sampling)
+loop = 30; % Runs
+train_err = zeros(loop,3);
+test_err = zeros(loop,3); % (loop, 3 for mask / 5 for sampling)
 
 rng(1,'twister');
 
@@ -19,7 +19,7 @@ for i = 1:loop
 for j = 1:3
 %% Setup
 sequenceLength = 3000;
-memoryLength = 30;
+memoryLength = 10;
 nodes = 30;
 theta = 0.06;
 tau = nodes * theta;
@@ -64,8 +64,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err_30nooffset(i,j) = train_error;
-    test_err_30nooffset(i,j) = test_error;
+    train_err(i,j) = train_error;
+    test_err(i,j) = test_error;
 
 % %% Demultiplexing
 % 

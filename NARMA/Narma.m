@@ -6,8 +6,8 @@ clear
 close all
 
 loop = 30; % Runs
-train_err = zeros(loop,3);
-test_err = zeros(loop,3); % (loop, 3 for mask / 5 for sampling)
+train_err_30dp1 = zeros(loop,1);
+test_err_30dp1 = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 
 rng(1,'twister');
 
@@ -19,7 +19,7 @@ for i = 1:loop
 for j = 1:3
 %% Setup
 sequenceLength = 3000;
-memoryLength = 10;
+memoryLength = 30;
 nodes = 30;
 theta = 0.06;
 tau = nodes * theta;
@@ -29,7 +29,7 @@ config.memoryLength = '{10,5}'; %[0,0.5]
 [inputSequence, outputSequence] = generate_new_NARMA_sequence(sequenceLength, memoryLength);
 
 %% Time-multiplexing
-% config.masking_type = '3'; % select between '1 = Sample and Hold','2 = Binary Weight Mask','3 = Random Weight Mask'
+% config.masking_type = '2'; % select between '1 = Sample and Hold','2 = Binary Weight Mask','3 = Random Weight Mask'
 config.masking_type = num2str(mask(j));
 [masking] = TimeMultiplexing(inputSequence,sequenceLength,nodes,config);
 start_time = 0; % Starting time --- in order to make T = TFinal
@@ -46,9 +46,9 @@ n = 9.65; % Nonlinearity
 resis_per_unit = 10;
 
 % connect_nodes = sampling(j);  %-- For vary sampling
-connect_nodes = 30;
+connect_nodes = 1;
 ratio = nodes/connect_nodes;
-config.connect_type = '30';
+config.connect_type = '1';
 % config.connect_type = num2str(sampling(j)); % Connectivity: '30','15','10','5','2'
 sample_time = tau/ratio;
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,connect_nodes,ratio,config);
@@ -64,8 +64,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err(i,j) = train_error;
-    test_err(i,j) = test_error;
+    train_err_30dp1(i,j) = train_error;
+    test_err_30dp1(i,j) = test_error;
 
 % %% Demultiplexing
 % 
@@ -87,4 +87,4 @@ config.err_type = 'NRMSE';
 end
 toc
 end
-% save 'N30_dism' test_err_30nooffset train_err_30nooffset
+save 'N30_offsetdp1' test_err_30dp1 train_err_30dp1

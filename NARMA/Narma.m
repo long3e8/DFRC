@@ -1,13 +1,13 @@
-%% NARMA-10 Benchmark Task
+%% NARMA Benchmark Task
 % This script is used to run NARMA-10 benchmark on Mackey-Glass dynamical
 % system with Simulink tool.
 
 clear
 close all
 
-loop = 30; % Runs
-train_err_30dp1 = zeros(loop,1);
-test_err_30dp1 = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
+loop = 1; % Runs
+train_err = zeros(loop,1);
+test_err = zeros(loop,1); % (loop, 3 for mask / 5 for sampling)
 
 rng(1,'twister');
 
@@ -46,9 +46,9 @@ n = 9.65; % Nonlinearity
 resis_per_unit = 10;
 
 % connect_nodes = sampling(j);  %-- For vary sampling
-connect_nodes = 1;
+connect_nodes = 30;
 ratio = nodes/connect_nodes;
-config.connect_type = '1';
+config.connect_type = '30';
 % config.connect_type = num2str(sampling(j)); % Connectivity: '30','15','10','5','2'
 sample_time = tau/ratio;
 [state_matrix] = Sim_MG(coupling,decay_rate,n,TFinal,tau,connect_nodes,ratio,config);
@@ -64,8 +64,8 @@ config.err_type = 'NRMSE';
     train_error = calculateError(system_train_output_sequence,target_train_state,config);
     test_error = calculateError(system_test_output_sequence,target_test_state,config);
     
-    train_err_30dp1(i,j) = train_error;
-    test_err_30dp1(i,j) = test_error;
+    train_err(i,j) = train_error;
+    test_err(i,j) = test_error;
 
 % %% Demultiplexing
 % 
@@ -87,4 +87,4 @@ config.err_type = 'NRMSE';
 end
 toc
 end
-save 'N30_offsetdp1' test_err_30dp1 train_err_30dp1
+% save 'N30_offsetdp1' test_err_30dp1 train_err_30dp1

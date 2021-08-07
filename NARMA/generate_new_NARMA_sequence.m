@@ -29,7 +29,7 @@ end
 
 %previously used to initiate random seed 
 % rng(1,'twister');
-washout =100;
+washout = 100;
 
 %%%% create input (set to between a distribution given by default or user
 % use the input sequence to drive a NARMA equation
